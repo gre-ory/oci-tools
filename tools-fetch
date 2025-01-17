@@ -1,0 +1,26 @@
+#!/bin/bash
+
+CURRENT_DIR=${PWD}
+
+print-cmd "cd ~/_git/bash-tools"
+cd ~/_git/bash-tools
+
+print-cmd "git fetch -p -q origin"
+git fetch -p -q origin
+
+print-cmd "git merge --ff origin/master"
+git merge --ff origin/master
+
+print-cmd "cd ~/_git/oci-tools"
+cd ~/_git/oci-tools
+
+print-cmd "git fetch -p -q origin"
+git fetch -p -q origin
+
+print-cmd "git merge --ff origin/master"
+git merge --ff origin/master
+
+print-cmd "rs"
+rs
+
+cd ${CURRENT_DIR}

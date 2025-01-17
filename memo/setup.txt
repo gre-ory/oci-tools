@@ -1,0 +1,22 @@
+
+#
+# .bashrc
+#
+
+# add lines to ~/.bashrc
+
+if [ -f ~/.bashrc.user ]; then
+    . ~/.bashrc.user
+fi
+
+# clone oci-tools
+
+mkdir _git
+cd _git
+git clone git@github.com:gvaligiani/bash-tools bash-tools
+git clone https://github.com/gre-ory/oci-tools ~/_git/oci-tools
+
+# link .bashrc.user
+
+ln -s ~/_git/oci-tools/bash/.bashrc.user
+source ~/.bashrc
