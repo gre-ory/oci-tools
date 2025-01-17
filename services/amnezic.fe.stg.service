@@ -1,0 +1,11 @@
+[Unit]
+Description=Amnezic Frontend STG server
+
+[Service]
+User=ubuntu
+PIDFile=/run/amnezic.fe.stg.pid
+ExecStartPre=/bin/rm -f /run/amnezic.fe.stg.pid
+ExecStart=/home/ubuntu/_stg/amnezic-fe/scripts/run stg
+
+[Install]
+WantedBy=multi-user.target

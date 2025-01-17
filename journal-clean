@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# option
+
+DRY="0"
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        -d|--dry)       DRY="1";;
+        *)              print-error "unknown option ${1}"; exit 1;;
+    esac
+    shift
+done
+
+# exec
+
+echo "~> sudo journalctl --vacuum-time=1d"
+if [[ "${DRY}" == "0" ]]; then
+  sudo journalctl --vacuum-time=1d
+fi

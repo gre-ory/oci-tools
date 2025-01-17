@@ -1,0 +1,11 @@
+[Unit]
+Description=Games Backend STG server
+
+[Service]
+User=ubuntu
+PIDFile=/run/games.be.stg.pid
+ExecStartPre=/bin/rm -f /run/games.be.stg.pid
+ExecStart=/home/ubuntu/_stg/games-go/scripts/run stg
+
+[Install]
+WantedBy=multi-user.target

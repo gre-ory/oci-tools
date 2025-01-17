@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# option
+
+DRY="0"
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        -d|--dry)       DRY="1";;
+        *)              print-error "unknown option ${1}"; exit 1;;
+    esac
+    shift
+done
+
+# exec
+
+echo "~> sudo systemctl daemon-reload"
+if [[ "${DRY}" == "0" ]]; then
+    sudo systemctl daemon-reload
+fi
+
+for SERVICE in $( service-select $* ); do
+    echo "~> sudo systemctl stop ${SERVICE}"
+    if [[ "${DRY}" == "0" ]]; then
+        sudo systemctl stop ${SERVICE}
+    fi
+
+    echo "~> sudo systemctl start ${SERVICE}"
+    if [[ "${DRY}" == "0" ]]; then
+        sudo systemctl start ${SERVICE}
+    fi
+
+    echo "~> sudo systemctl status ${SERVICE}"
+    if [[ "${DRY}" == "0" ]]; then
+        sudo systemctl status ${SERVICE}
+    fi
+done

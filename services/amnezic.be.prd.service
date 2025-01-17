@@ -1,0 +1,11 @@
+[Unit]
+Description=Amnezic Backend PRD server
+
+[Service]
+User=ubuntu
+PIDFile=/run/amnezic.be.prd.pid
+ExecStartPre=/bin/rm -f /run/amnezic.be.prd.pid
+ExecStart=/home/ubuntu/_prd/amnezic-be/scripts/run prd
+
+[Install]
+WantedBy=multi-user.target

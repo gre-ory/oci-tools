@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "~> git fetch --all --tags"
+git fetch --all --tags
+
+VERSION=$( git-select-version $* )
+if [[ "${VERSION}" == "" ]]; then
+    exit 1
+fi
+
+print-header "checkout version ${VERSION}"
+
+echo "~> git what \"${VERSION}\""
+git what "${VERSION}" > /dev/null 2> /dev/null  || exit 1
+
+echo "~> git checkout \"${VERSION}\""
+git checkout "${VERSION}"

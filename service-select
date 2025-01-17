@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# global
+
+CURRENT_DIR=$( dirname $0 )
+SERVICE_DIR="${CURRENT_DIR}/services"
+
+# option
+
+MODE="multi"
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        -a|--all)       MODE="multi-all";;
+        -m|--multi)     MODE="multi";;
+        -o|--one)       MODE="one";;
+        -s|--single)    MODE="one";;
+        *)              print-error "unknown option ${1}"; exit 1;;
+    esac
+    shift
+done
+
+if [[ "${1}" == "" ]]; then
+
+    if [[ "$PWD" =~ /amnezic-be/ ]]; then
+        PATTERN="amnezic.be."
+    elif [[ "$PWD" =~ /amnezic-fe/ ]]; then
+        PATTERN="amnezic.fe."
+    elif [[ "$PWD" =~ /games-be/ ]]; then
+        PATTERN="games.be."
+    fi
+
+    if [[ "$PWD" =~ /_*stg/ ]]; then
+        PATTERN="${PATTERN}stg"
+    elif [[ "$PWD" =~ /_*prd/ ]]; then
+        PATTERN="${PATTERN}prd"
+    fi
+
+else
+    PATTERN="${1}"
+fi
+
+if [[ "${MODE}" == "multi-all" ]]; then
+    ls ${SERVICE_DIR} | grep "${PATTERN}" | choose -a -h "Select services"
+elif [[ "${MODE}" == "multi" ]]; then
+    ls ${SERVICE_DIR} | grep "${PATTERN}" | choose -m -h "Select services"
+else
+    ls ${SERVICE_DIR} | grep "${PATTERN}" | choose -h "Select services"
+fi

@@ -1,0 +1,11 @@
+[Unit]
+Description=Games Backend PRD server
+
+[Service]
+User=ubuntu
+PIDFile=/run/games.be.prd.pid
+ExecStartPre=/bin/rm -f /run/games.be.prd.pid
+ExecStart=/home/ubuntu/_prd/games-go/scripts/run prd
+
+[Install]
+WantedBy=multi-user.target

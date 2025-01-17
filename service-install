@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# global
+
+CURRENT_DIR=$( dirname $0 )
+SERVICE_DIR="${CURRENT_DIR}/services"
+
+# option
+
+DRY="0"
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        -d|--dry)       DRY="1";;
+        *)              print-error "unknown option ${1}"; exit 1;;
+    esac
+    shift
+done
+
+# exec
+
+SERVICES=$( service-select $* )
+for SERVICE in ${SERVICES}; do
+
+    echo "~> sudo cp ${SERVICE_DIR} /etc/systemd/system/${SERVICE}"
+    if [[ "${DRY}" == "0" ]]; then
+        sudo cp ${SERVICE_DIR} /etc/systemd/system/${SERVICE}
+    fi
+
+done
+
+echo "~> sudo systemctl daemon-reload"
+if [[ "${DRY}" == "0" ]]; then
+    sudo systemctl daemon-reload
+fi
+
+for SERVICE in ${SERVICES}; do
+
+    echo "~> sudo systemctl start ${SERVICE}"
+    if [[ "${DRY}" == "0" ]]; then
+        sudo systemctl start ${SERVICE}
+    fi
+
+    echo "~> sudo systemctl enable ${SERVICE}"
+    if [[ "${DRY}" == "0" ]]; then
+        sudo systemctl enable ${SERVICE}
+    fi
+    fi
+
+    echo "~> sudo systemctl status ${SERVICE}"
+    if [[ "${DRY}" == "0" ]]; then
+        sudo systemctl status ${SERVICE}
+    fi
+
+done

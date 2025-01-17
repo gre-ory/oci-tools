@@ -1,0 +1,3 @@
+#!/bin/bash
+
+git describe --exact-match --tags $( git log -n1 --pretty='%h' ) 2> /dev/null || echo v9.9.9
