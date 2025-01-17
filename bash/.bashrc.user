@@ -1,0 +1,163 @@
+#
+# bash tools
+#
+
+#
+# prompt
+#
+
+function current_branch() {
+    BRANCH=$( git rev-parse --abbrev-ref HEAD 2> /dev/null | sed 's/.*\///g' )
+    if [[ "${BRANCH}" != "" ]]; then
+        echo " (${BRANCH})"
+    fi
+}
+
+export PS1=' \[\e[1;34m\]\t\[\e[0m\] [   ] \[\e[33m\]\u:\[\e[0m\] \[\e[32m\]\w\[\e[0m\]\[\e[35m\]$(current_branch)\[\e[0m\] > '
+
+#
+# path
+#
+
+export GIT_ROOT_DIR=${HOME}/_git
+export STG_DIR=${HOME}/_stg
+export PRD_DIR=${HOME}/_prd
+
+export PATH=${PATH}:${GIT_ROOT_DIR}/bash-tools
+export PATH=${PATH}:${GIT_ROOT_DIR}/oci-tools
+export PATH=${PATH}:.
+
+#
+# export display
+#
+
+# WSL2 ( not working )
+# export DISPLAY=$( hostname ).local:0
+# export DISPLAY=:0
+# export DISPLAY=$( host `hostname --long` | print-n -1 ):0
+# export DISPLAY=$( ip route list default | print-3 ):0.0
+# # export DISPLAY=$( grep -m 1 nameserver /etc/resolv.conf | print-2 ):0.0
+# export LIBGL_ALWAYS_INDIRECT=1
+# export DISPLAY=$( route.exe print | grep 0.0.0.0 | head -1 | print-4 ):0.0
+
+#
+# go
+#
+
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
+export GOPATH=~/.go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/go/bin
+export PATH=./bin:$PATH
+
+function c() {
+    print-cmd "go build ./..."
+    go build ./...
+}
+
+function t() {
+
+    REPO_DIR=$( git rev-parse --show-toplevel )
+    COVER_FILE_OUT="coverage.out"
+    COVER_FILE_HTML="coverage.html"
+    rm -f "${COVER_FILE_OUT}" "${COVER_FILE_HTML}"
+
+    print-cmd "GOFLAGS=\"-count=1\""
+    print-cmd "ENVIRONMENT=\"local\""
+
+    TARGET_TEST="${1}"
+    TARGET_PACKAGE=""
+    if [[ "${TARGET_TEST}" != "" ]]; then
+        print-cmd "TEST=\"${TARGET_TEST}\""
+        TARGET_FILE=$( ag -l "${TARGET_TEST}" | head -n 1 | xargs dirname )
+        if [[ "${TARGET_FILE}" != "" ]]; then
+            print-cmd "TEST_FILE=\"./${TARGET_FILE}\""
+            TARGET_PACKAGE=$( go list ./${TARGET_FILE} )
+        fi
+    fi
+    if [[ "${TARGET_PACKAGE}" != "" ]]; then
+        print-cmd "go test -race -p 1 -run ^${TARGET_TEST}$ ${TARGET_PACKAGE}"
+        GOFLAGS="-count=1" ENVIRONMENT="local" go test -race -p 1 -run ^${TARGET_TEST}$ ${TARGET_PACKAGE}
+    else 
+        print-cmd "go test -race -p 1 -coverprofile=\"${COVER_FILE_OUT}\" ./..."
+        GOFLAGS="-count=1" ENVIRONMENT="local" go test -race -p 1 -coverprofile="${COVER_FILE_OUT}" ./...
+    fi
+
+    if [[ -e ${COVER_FILE_OUT} ]]; then
+        print-cmd "go tool cover -html=\"${COVER_FILE_OUT}\" -o \"${COVER_FILE_HTML}\""
+        go tool cover -html="${COVER_FILE_OUT}" -o "${COVER_FILE_HTML}"
+    fi
+}
+
+alias ct="c && t"
+
+function go20 {
+    print-info "switch to go 1.20"
+    sudo rm /usr/local/go
+    sudo ln -s /usr/local/go_1.20 /usr/local/go
+    ls -Al /usr/local/go
+    rm $HOME/.go
+    ln -s $HOME/.go_1.20 $HOME/.go
+    ls -Al $HOME/.go
+}
+
+#
+# alias
+#
+
+function d() {
+    print-info "${PWD}"
+}
+function e() {
+    env | grep -i "${1}"
+}
+function f() {
+    find -name "*$1*" | sed 's/^\.\///'
+}
+function h() {
+    history | grep -i "${1}"
+}
+alias l="ls -Al"
+function path() {
+    echo ${PATH} | split-lines ':' | grep -i "${1}"
+}
+
+function p() {
+    REALPATH=$( realpath ${PWD} )
+    if [[ "${PWD}" == ${REALPATH} ]]; then
+        echo "${PWD}"
+    else
+        echo "${PWD} $( color purple ":: ${REALPATH}" )"
+    fi
+}
+function w() {
+    type -a "${1}"
+}
+
+alias grep='grep --color'
+alias inc="git-include"
+
+alias re=regex
+
+alias re-source="source ~/.bashrc"
+alias rs="re-source"
+
+function _ping() {
+    ( ( ping -c 1 -W 1 "${1}" > /dev/null && print-ok "ping ${1}" ) || print-ko "ping ${1}" )
+}
+alias p8="_ping 8.8.8.8"
+alias pa="_ping amadeus.com"
+
+#alias bump="github-bump-release"
+#alias pr="github-pull-request"
+#alias prs="github-pull-request all"
+
+alias unbuffer='stdbuf -o0'
+
+alias be-stg='cd ~/_stg/amnezic-be'
+alias be-prd='cd ~/_prd/amnezic-be'
+alias fe-stg='cd ~/_stg/amnezic-fe'
+alias fe-prd='cd ~/_prd/amnezic-fe'
+alias bash-tools='cd ~/_git/bash-tools'
+alias oci-tools='cd ~/_git/oci-tools'
