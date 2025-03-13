@@ -20,7 +20,7 @@ git fetch -p -q origin
 print-cmd "git merge --ff origin/master"
 git merge --ff origin/master
 
-print-cmd "rs"
-rs
+print-cmd "source ~/.bashrc"
+source ~/.bashrc
 
 cd ${CURRENT_DIR}

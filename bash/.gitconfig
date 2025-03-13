@@ -1,0 +1,30 @@
+[include]
+        path = ~/_git/bash-tools/_bash/.gitconfig.alias
+
+[user]
+    email = "gregory.valigiani@gmail.com"
+    name = "gre_ory"
+
+[github]
+    user = "gre-ory"
+
+[core]
+    sshCommand = "ssh -i ~/.ssh/perso_gmail_ed25519"
+
+[color]
+    ui = auto
+
+[color]
+    decorate = short
+
+[credential]
+    helper = store
+
+[push]
+    default = simple
+
+[url "git@github.com:"]
+    insteadof = https://github.com/
+
+[core]
+    editor = vim

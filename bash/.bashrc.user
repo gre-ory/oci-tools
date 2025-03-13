@@ -13,7 +13,7 @@ function current_branch() {
     fi
 }
 
-export PS1=' \[\e[1;34m\]\t\[\e[0m\] [   ] \[\e[33m\]\u:\[\e[0m\] \[\e[32m\]\w\[\e[0m\]\[\e[35m\]$(current_branch)\[\e[0m\] > '
+export PS1=' \[\e[1;34m\]\t\[\e[0m\]  [   ] \[\e[33m\]\u:\[\e[0m\] \[\e[32m\]\w\[\e[0m\]\[\e[35m\]$(current_branch)\[\e[0m\] > '
 
 #
 # path
@@ -26,6 +26,13 @@ export PRD_DIR=${HOME}/_prd
 export PATH=${PATH}:${GIT_ROOT_DIR}/bash-tools
 export PATH=${PATH}:${GIT_ROOT_DIR}/oci-tools
 export PATH=${PATH}:.
+
+#
+# gum
+#  >>> gum is very slow on OCI
+#
+
+GUM_LOG=0
 
 #
 # export display
