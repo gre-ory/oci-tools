@@ -21,32 +21,31 @@ done
 SERVICES=$( service-select $* )
 for SERVICE in ${SERVICES}; do
 
-    echo "~> sudo cp ${SERVICE_DIR} /etc/systemd/system/${SERVICE}"
+    print-cmd "sudo cp ${SERVICE_DIR}/${SERVICE} /etc/systemd/system/${SERVICE}"
     if [[ "${DRY}" == "0" ]]; then
-        sudo cp ${SERVICE_DIR} /etc/systemd/system/${SERVICE}
+        sudo cp ${SERVICE_DIR}/${SERVICE} /etc/systemd/system/${SERVICE}
     fi
 
 done
 
-echo "~> sudo systemctl daemon-reload"
+print-cmd "sudo systemctl daemon-reload"
 if [[ "${DRY}" == "0" ]]; then
     sudo systemctl daemon-reload
 fi
 
 for SERVICE in ${SERVICES}; do
 
-    echo "~> sudo systemctl start ${SERVICE}"
+    print-cmd "sudo systemctl start ${SERVICE}"
     if [[ "${DRY}" == "0" ]]; then
         sudo systemctl start ${SERVICE}
     fi
 
-    echo "~> sudo systemctl enable ${SERVICE}"
+    print-cmd "sudo systemctl enable ${SERVICE}"
     if [[ "${DRY}" == "0" ]]; then
         sudo systemctl enable ${SERVICE}
     fi
-    fi
 
-    echo "~> sudo systemctl status ${SERVICE}"
+    print-cmd "sudo systemctl status ${SERVICE}"
     if [[ "${DRY}" == "0" ]]; then
         sudo systemctl status ${SERVICE}
     fi
