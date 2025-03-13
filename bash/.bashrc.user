@@ -32,7 +32,7 @@ export PATH=${PATH}:.
 #  >>> gum is very slow on OCI
 #
 
-GUM_LOG=0
+export GUM_LOG=0
 
 #
 # export display
