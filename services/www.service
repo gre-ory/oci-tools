@@ -1,0 +1,11 @@
+[Unit]
+Description=Public server
+
+[Service]
+PIDFile=/run/www.pid
+ExecStartPre=/bin/rm -f /run/www.pid
+ExecStart=python3 -m http.server -d /home/ubuntu/www 80
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target

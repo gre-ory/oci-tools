@@ -1,13 +1,15 @@
 #!/bin/bash
 
-SERVER_KEY="$HOME/.ssh/server.key"
-SERVER_CRT="$HOME/.ssh/server.crt"
+NAME=${1:-server}
 
-echo "~> openssl genrsa -out ${SERVER_KEY} 2048"
-openssl genrsa -out ${SERVER_KEY} 2048
+KEY_FILE="$HOME/.ssh/${NAME}.key"
+CRT_FILE="$HOME/.ssh/${NAME}.crt"
 
-echo "~> openssl ecparam -genkey -name secp384r1 -out ${SERVER_KEY}"
-openssl ecparam -genkey -name secp384r1 -out ${SERVER_KEY}
+echo "~> openssl genrsa -out ${KEY_FILE} 2048"
+openssl genrsa -out ${KEY_FILE} 2048
 
-echo "~> openssl req -new -x509 -sha256 -key ${SERVER_KEY} -out ${SERVER_CRT} -days 3650"
-openssl req -new -x509 -sha256 -key ${SERVER_KEY} -out ${SERVER_CRT} -days 3650
+echo "~> openssl ecparam -genkey -name secp384r1 -out ${KEY_FILE}"
+openssl ecparam -genkey -name secp384r1 -out ${KEY_FILE}
+
+echo "~> openssl req -new -x509 -sha256 -key ${KEY_FILE} -out ${CRT_FILE} -days 3650"
+openssl req -new -x509 -sha256 -key ${KEY_FILE} -out ${CRT_FILE} -days 3650
