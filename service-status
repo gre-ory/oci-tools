@@ -14,7 +14,7 @@ done
 # exec
 
 for SERVICE in $( service-select $* ); do
-    echo "~> sudo systemctl status ${SERVICE}"
+    print-cmd "sudo systemctl status ${SERVICE}"
     if [[ "${DRY}" == "0" ]]; then
         sudo systemctl status ${SERVICE}
     fi

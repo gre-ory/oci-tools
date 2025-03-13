@@ -1,6 +1,26 @@
 #!/bin/bash
 
-PORT=${1:-80}
+# option
+
+SUDO="0"
+PORT=""
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        -s|--sudo)      SUDO="1";;
+        -p|--port)      PORT="${2}"; shift;;
+        --)             shift; break;;
+        *)              print-error "unknown option ${1}"; exit 1;;
+    esac
+    shift
+done
+
+if [[ -z "${PORT}" ]]; then
+    PORT=${1:-80}
+fi
 
 print-cmd "python3 -m http.server ${PORT}"
-python3 -m http.server ${PORT}
+if [[ "${SUDO}" == "1" ]]; then
+    sudo python3 -m http.server ${PORT}
+else
+    python3 -m http.server ${PORT}
+fi
