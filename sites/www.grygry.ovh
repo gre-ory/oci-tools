@@ -4,6 +4,7 @@ server {
         listen          80;
         listen          [::]:80;
         access_log      /var/log/nginx/www.access.log;
+        error_log       /var/log/nginx/www.error.log;
         return          301 https://$server_name$request_uri;
 }
 
@@ -17,6 +18,7 @@ server {
         error_log               /var/log/nginx/www.error.log;
         root                    /var/nginx/www;
         location / {
+                index index.html;
                 try_files $uri $uri/ =404;
         }
 }
