@@ -20,7 +20,7 @@ server {
         listen                  [::]:80 default_server;
         access_log              /var/log/nginx/http.log;
         error_log               /var/log/nginx/http.log;
-        return                  301 https://$hostname$request_uri;
+        return                  301 https://$host$request_uri;
 }
 
 # reject others
