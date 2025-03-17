@@ -7,20 +7,9 @@ server {
         access_log      /var/log/nginx/static.access.log;
         error_log       /var/log/nginx/static.error.log;
 
+        root            /home/ubuntu/nginx/static;
         location / {
-                autoindex               on;
-                # deny    all;
-                #location ~ "\.(jpg|jpeg|png|gif)$" {
-                #        root    /home/ubuntu/nginx/static/img;
-                #        allow   all;
-                #}
-                #location ~ "\.(js)$" {
-                #        root    /home/ubuntu/nginx/static/js;
-                #        allow   all;
-                #}
-                #location ~ "\.(mp3)$" {
-                #        root    /home/ubuntu/nginx/static/music;
-                #        allow   all;
-                #}
+                try_files       $uri $uri/ =404;
+                autoindex       on;
         }
 }

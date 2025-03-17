@@ -5,10 +5,11 @@ server {
         listen          [::]:80;
 
         access_log      /var/log/nginx/media.access.log;
-        error_log      /var/log/nginx/media.error.log;
+        error_log       /var/log/nginx/media.error.log;
 
         root            /home/ubuntu/nginx/media;
         location / {
-                autoindex               on;
+                try_files       $uri $uri/ =404;
+                autoindex       on;
         }
 }
