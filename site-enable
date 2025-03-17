@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# option
+
+DRY="0"
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        -d|--dry)       DRY="1";;
+        *)              print-error "unknown option ${1}"; exit 1;;
+    esac
+    shift
+done
+
+# exec
+
+for SITE in $( site-select $* ); do
+
+    if [[ -e /etc/nginx/sites-available/${SITE} ]]; then
+        if [[ ! -e /etc/nginx/sites-enabled/${SITE} ]]; then
+            print-cmd "sudo ln -s /etc/nginx/sites-available/${SITE} /etc/nginx/sites-enabled/${SITE}"
+            if [[ "${DRY}" == "0" ]]; then
+                sudo ln -s /etc/nginx/sites-available/${SITE} /etc/nginx/sites-enabled/${SITE}
+            fi
+        else    
+            print-ko "site ${SITE} already $( color green enabled )"
+        fi
+    else    
+        print-ko "site ${SITE} $( color red not ) available"
+    fi
+
+done
+
+print-cmd "sudo service nginx restart"
+if [[ "${DRY}" == "0" ]]; then
+    sudo service nginx restart
+fi

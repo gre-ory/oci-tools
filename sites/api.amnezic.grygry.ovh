@@ -1,0 +1,15 @@
+# http -> https
+server {
+    listen          80;
+    listen          [::]:80;
+    server_name     api.amnezic.grygry.ovh;
+    # return          301 https://$server_name$request_uri;
+}
+
+# https
+# server {
+#     listen                  443 ssl;
+#     server_name             api.amnezic.grygry.ovh;
+#     ssl_certificate         /home/ubuntu/.ssh/server.crt;
+#     ssl_certificate_key     /home/ubuntu/.ssh/server.key;  
+# }

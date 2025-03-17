@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# option
+
+DRY="0"
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        -d|--dry)       DRY="1";;
+        *)              print-error "unknown option ${1}"; exit 1;;
+    esac
+    shift
+done
+
+# exec
+
+for SITE in $( site-select -a $* ); do
+
+    if [[ -e /etc/nginx/sites-enabled/${SITE} ]]; then
+        print-info "site ${SITE}: $( color green enabled )"
+    elif [[ -e /etc/nginx/sites-available/${SITE} ]]; then
+        print-info "site ${SITE}: $( color orange disabled )"
+    else
+        print-info "site ${SITE}: $( color red unavailable )"
+    fi
+
+done

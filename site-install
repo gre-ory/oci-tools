@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# global
+
+CURRENT_DIR=$( dirname $0 )
+SITES_DIR="${CURRENT_DIR}/sites"
+
+# option
+
+DRY="0"
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        -d|--dry)       DRY="1";;
+        *)              print-error "unknown option ${1}"; exit 1;;
+    esac
+    shift
+done
+
+# exec
+
+SITES=$( site-select $* )
+for SITE in ${SITES}; do
+
+    print-cmd "sudo cp ${SITES_DIR}/${SITE} /etc/nginx/sites-available/${SITE}"
+    if [[ "${DRY}" == "0" ]]; then
+        sudo cp ${SITES_DIR}/${SITE} /etc/nginx/sites-available/${SITE}
+    fi
+
+    print-cmd "sudo ln -s /etc/nginx/sites-available/${SITE} /etc/nginx/sites-enabled/${SITE}"
+    if [[ "${DRY}" == "0" ]]; then
+        sudo ln -s /etc/nginx/sites-available/${SITE} /etc/nginx/sites-enabled/${SITE}
+    fi
+
+done
+
+print-cmd "sudo service nginx restart"
+if [[ "${DRY}" == "0" ]]; then
+    sudo service nginx restart
+fi

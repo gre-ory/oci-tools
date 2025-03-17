@@ -1,0 +1,16 @@
+
+#
+# amnezic
+#
+
+PRD amnezic FE ::
+STG amnezic FE ::
+PRD amnezic BE ::
+STG amnezic BE ::
+
+#
+# games
+#
+
+PRD games :: 9020
+STG games ::
