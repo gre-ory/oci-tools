@@ -7,7 +7,7 @@ server {
         access_log      /var/log/nginx/static.access.log;
         error_log       /var/log/nginx/static.error.log;
 
-        root            /home/ubuntu/nginx/static;
+        root            /var/nginx/static;
         location / {
                 try_files       $uri $uri/ =404;
                 autoindex       on;
