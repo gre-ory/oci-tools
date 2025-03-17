@@ -21,6 +21,8 @@ done
 SITES=$( site-select $* )
 for SITE in ${SITES}; do
 
+    print-step "${SITE}"
+
     if [[ -e /etc/nginx/sites-enabled/${SITE} ]]; then
         print-cmd "sudo rm -f /etc/nginx/sites-enabled/${SITE}"
         if [[ "${DRY}" == "0" ]]; then

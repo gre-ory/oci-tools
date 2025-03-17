@@ -2,10 +2,8 @@
 server {
         listen          80;
         listen          [::]:80;
-
         access_log      /var/log/nginx/static.access.log;
         root            /home/ubuntu/www/static;
-
         location / {
                 deny all;
                 location ~ "\.(jpg|jpeg|png|gif)$" {
