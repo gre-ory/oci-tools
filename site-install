@@ -21,6 +21,20 @@ done
 SITES=$( site-select $* )
 for SITE in ${SITES}; do
 
+    if [[ -e /etc/nginx/sites-enabled/${SITE} ]]; then
+        print-cmd "sudo rm -f /etc/nginx/sites-enabled/${SITE}"
+        if [[ "${DRY}" == "0" ]]; then
+            sudo rm -f /etc/nginx/sites-enabled/${SITE}
+        fi
+    fi
+
+    if [[ -e /etc/nginx/sites-available/${SITE} ]]; then
+        print-cmd "sudo rm -f /etc/nginx/sites-available/${SITE}"
+        if [[ "${DRY}" == "0" ]]; then
+            sudo rm -f /etc/nginx/sites-available/${SITE}
+        fi
+    fi
+
     print-cmd "sudo cp ${SITES_DIR}/${SITE} /etc/nginx/sites-available/${SITE}"
     if [[ "${DRY}" == "0" ]]; then
         sudo cp ${SITES_DIR}/${SITE} /etc/nginx/sites-available/${SITE}
