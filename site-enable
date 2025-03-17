@@ -32,6 +32,7 @@ for SITE in $( site-select $* ); do
 
 done
 
+print-step "nginx"
 print-cmd "sudo service nginx restart"
 if [[ "${DRY}" == "0" ]]; then
     sudo service nginx restart

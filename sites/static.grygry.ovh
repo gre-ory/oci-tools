@@ -1,5 +1,6 @@
 # http
 server {
+        server_name     static.grygry.ovh;
         listen          80;
         listen          [::]:80;
         access_log      /var/log/nginx/static.access.log;
