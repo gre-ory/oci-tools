@@ -4,7 +4,7 @@ server {
         listen          80;
         listen          [::]:80;
         access_log      /var/log/nginx/media.access.log;
-        root            /home/ubuntu/www/media;
+        root            /home/ubuntu/nginx/media;
         location / {
                 deny all;
                 location ~ "\.(mp3)$" {

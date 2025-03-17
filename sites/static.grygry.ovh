@@ -4,11 +4,19 @@ server {
         listen          80;
         listen          [::]:80;
         access_log      /var/log/nginx/static.access.log;
-        root            /home/ubuntu/www/static;
         location / {
-                deny all;
+                deny    all;
                 location ~ "\.(jpg|jpeg|png|gif)$" {
-                        allow all;
+                        root    /home/ubuntu/nginx/static/img;
+                        allow   all;
+                }
+                location ~ "\.(js)$" {
+                        root    /home/ubuntu/nginx/static/js;
+                        allow   all;
+                }
+                location ~ "\.(mp3)$" {
+                        root    /home/ubuntu/nginx/static/music;
+                        allow   all;
                 }
         }
 }
