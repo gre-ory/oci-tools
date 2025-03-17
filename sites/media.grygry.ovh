@@ -1,15 +1,14 @@
-# http
 server {
         server_name     media.grygry.ovh;
         listen          80;
         listen          [::]:80;
 
-        access_log      /var/log/nginx/media.access.log;
-        error_log       /var/log/nginx/media.error.log;
+        access_log      /var/log/nginx/media.log;
+        error_log       /var/log/nginx/media.log;
 
         root            /var/nginx/media;
         location / {
                 try_files       $uri $uri/ =404;
-                autoindex       on;
+                # autoindex       on;
         }
 }

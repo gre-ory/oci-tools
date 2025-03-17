@@ -1,15 +1,14 @@
-# http
 server {
         server_name     static.grygry.ovh;
         listen          80;
         listen          [::]:80;
 
-        access_log      /var/log/nginx/static.access.log;
-        error_log       /var/log/nginx/static.error.log;
+        access_log      /var/log/nginx/static.log;
+        error_log       /var/log/nginx/static.log;
 
         root            /var/nginx/static;
         location / {
                 try_files       $uri $uri/ =404;
-                autoindex       on;
+                # autoindex       on;
         }
 }

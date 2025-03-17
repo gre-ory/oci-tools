@@ -1,0 +1,10 @@
+server {
+    server_name             stg.amnezic.grygry.ovh;
+
+    listen                  443 ssl;
+    include                 /var/nginx/.conf/ssl.conf;
+
+    location / {
+        proxy_pass          http://localhost:7002;
+    }
+}

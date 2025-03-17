@@ -1,16 +1,5 @@
 
-#
-# amnezic
-#
-
-PRD amnezic FE ::
-STG amnezic FE ::
-PRD amnezic BE ::
-STG amnezic BE ::
-
-#
-# games
-#
-
-PRD games :: 9020
-STG games ::
+app        :: PRD  :: STG  :: LOC  ::
+amnezic FE :: 7001 :: 7002 :: 7009 ::
+amnezic BE :: 7011 :: 7012 :: 7019 ::
+games      :: 7101 :: 7102 :: 7109 ::
