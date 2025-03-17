@@ -4,8 +4,8 @@ server {
         listen          443 ssl;
         include         /var/nginx/.conf/ssl.conf;
 
-        access_log      /var/log/nginx/static.log;
-        error_log       /var/log/nginx/static.log;
+        access_log      /var/nginx/log/static.log;
+        error_log       /var/nginx/log/static.log;
 
         root            /var/nginx/static;
         location / {

@@ -3,8 +3,8 @@ server {
         listen          80;
         listen          [::]:80;
 
-        access_log      /var/log/nginx/media.log;
-        error_log       /var/log/nginx/media.log;
+        access_log      /var/nginx/log/media.log;
+        error_log       /var/nginx/log/media.log;
 
         root            /var/nginx/media;
         location / {
