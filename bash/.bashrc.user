@@ -2,6 +2,8 @@
 # bash tools
 #
 
+source ${HOME}/_git/bash-tools/_bash/.bashrc
+
 #
 # prompt
 #
