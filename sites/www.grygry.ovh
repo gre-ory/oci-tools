@@ -14,6 +14,7 @@ server {
         ssl_certificate         /var/nginx/.ssh/server.crt;
         ssl_certificate_key     /var/nginx/.ssh/server.key;
         access_log              /var/log/nginx/www.access.log;
+        error_log               /var/log/nginx/www.error.log;
         root                    /var/nginx/www;
         location / {
                 try_files $uri $uri/ =404;
@@ -29,5 +30,6 @@ server {
         ssl_certificate             /var/nginx/.ssh/server.crt;
         ssl_certificate_key         /var/nginx/.ssh/server.key;
         access_log                  /var/log/nginx/others.access.log;
+        error_log                   /var/log/nginx/others.error.log;
         return                      444;
 }
