@@ -5,25 +5,22 @@ server {
         listen          [::]:80;
 
         access_log      /var/log/nginx/static.access.log;
-        map $status $loggable {
-                ~^[23]  0;
-                default 1;
-        }
-        error_log      /var/log/nginx/static.error.log if=$loggable;
+        error_log       /var/log/nginx/static.error.log;
 
         location / {
-                deny    all;
-                location ~ "\.(jpg|jpeg|png|gif)$" {
-                        root    /home/ubuntu/nginx/static/img;
-                        allow   all;
-                }
-                location ~ "\.(js)$" {
-                        root    /home/ubuntu/nginx/static/js;
-                        allow   all;
-                }
-                location ~ "\.(mp3)$" {
-                        root    /home/ubuntu/nginx/static/music;
-                        allow   all;
-                }
+                autoindex               on
+                # deny    all;
+                #location ~ "\.(jpg|jpeg|png|gif)$" {
+                #        root    /home/ubuntu/nginx/static/img;
+                #        allow   all;
+                #}
+                #location ~ "\.(js)$" {
+                #        root    /home/ubuntu/nginx/static/js;
+                #        allow   all;
+                #}
+                #location ~ "\.(mp3)$" {
+                #        root    /home/ubuntu/nginx/static/music;
+                #        allow   all;
+                #}
         }
 }
