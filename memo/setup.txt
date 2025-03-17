@@ -30,3 +30,9 @@ source ~/.bashrc
 #
 
 ln -s ~/_git/oci-tools/bash/.gitconfig
+
+#
+# html
+#
+
+ln -s ~/_git/oci-tools/html/index.html ~/nginx/www

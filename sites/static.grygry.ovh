@@ -3,7 +3,14 @@ server {
         server_name     static.grygry.ovh;
         listen          80;
         listen          [::]:80;
+
         access_log      /var/log/nginx/static.access.log;
+        map $status $loggable {
+                ~^[23]  0;
+                default 1;
+        }
+        error_log      /var/log/nginx/static.error.log if=$loggable;
+
         location / {
                 deny    all;
                 location ~ "\.(jpg|jpeg|png|gif)$" {

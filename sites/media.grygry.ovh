@@ -3,9 +3,18 @@ server {
         server_name     media.grygry.ovh;
         listen          80;
         listen          [::]:80;
+
         access_log      /var/log/nginx/media.access.log;
+        map $status $loggable {
+                ~^[23]  0;
+                default 1;
+        }
+        error_log      /var/log/nginx/media.error.log if=$loggable;
+
         root            /home/ubuntu/nginx/media;
         location / {
+                autoindex               on
+                autoindex_format        html
                 deny all;
                 location ~ "\.(mp3)$" {
                         allow all;
