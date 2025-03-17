@@ -1,13 +1,22 @@
+# http
 server {
-        server_name     static.grygry.ovh;
+        server_name             static.grygry.ovh;
+        listen                  80 default_server;
 
-        listen          443 ssl;
-        include         /var/nginx/.conf/ssl.conf;
+        root                    /var/nginx/static;
+        location / {
+                try_files       $uri $uri/ $uri.html =404;
+                # autoindex       on;
+        }
+}
 
-        access_log      /var/nginx/log/static.log;
-        error_log       /var/nginx/log/static.log;
+# https
+server {
+        server_name             static.grygry.ovh;
+        listen                  443 default_server ssl;
+        include                 /var/nginx/.conf/ssl.conf;
 
-        root            /var/nginx/static;
+        root                    /var/nginx/static;
         location / {
                 try_files       $uri $uri/ $uri.html =404;
                 # autoindex       on;

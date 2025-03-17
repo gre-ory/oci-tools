@@ -1,12 +1,22 @@
+# http
 server {
-        server_name     media.grygry.ovh;
-        listen          80;
-        listen          [::]:80;
+        server_name             media.grygry.ovh;
+        listen                  80 default_server;
 
-        access_log      /var/nginx/log/media.log;
-        error_log       /var/nginx/log/media.log;
+        root                    /var/nginx/media;
+        location / {
+                try_files       $uri $uri/ $uri.html =404;
+                # autoindex       on;
+        }
+}
 
-        root            /var/nginx/media;
+# https
+server {
+        server_name             media.grygry.ovh;
+        listen                  443 default_server ssl;
+        include                 /var/nginx/.conf/ssl.conf;
+
+        root                    /var/nginx/media;
         location / {
                 try_files       $uri $uri/ $uri.html =404;
                 # autoindex       on;
