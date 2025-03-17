@@ -9,10 +9,6 @@ server {
 
         root            /home/ubuntu/nginx/media;
         location / {
-                autoindex               on
-                # deny all;
-                # location ~ "\.(mp3)$" {
-                #         allow all;
-                # }
+                autoindex               on;
         }
 }
