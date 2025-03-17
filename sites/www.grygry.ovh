@@ -19,9 +19,11 @@ server {
 
 # reject others
 server {
-    listen          80 default_server;
-    listen          [::]:80 default_server;
-    listen          443 default_server ssl;
-    server_name     _;
-    return          444;
+    listen                      80 default_server;
+    listen                      [::]:80 default_server;
+    listen                      443 default_server ssl;
+    ssl_certificate             /home/ubuntu/.ssh/server.crt;
+    ssl_certificate_key         /home/ubuntu/.ssh/server.key;
+    server_name                 _;
+    return                      444;
 }
