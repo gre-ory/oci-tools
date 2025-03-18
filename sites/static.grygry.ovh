@@ -12,7 +12,7 @@ server {
 
         root                    /var/nginx/static;
         location / {
-                try_files       $uri $uri/ $uri.html =404;
-                # autoindex       on;
+                try_files       $uri $uri/ =404;
+                autoindex       on;
         }
 }
