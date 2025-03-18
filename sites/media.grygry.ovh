@@ -4,7 +4,7 @@
 
 server {
         server_name             media.grygry.ovh;
-        listen                  7002 default_server;
+        listen                  9002 default_server;
         listen                  [::]:7002 default_server;
     
         access_log              /var/nginx/log/media.log;

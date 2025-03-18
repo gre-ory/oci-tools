@@ -31,15 +31,15 @@ server {
                 #
 
                 if ( $prefix = "www" ) {
-                        proxy_pass http://localhost:7000;
+                        proxy_pass http://localhost:9000;
                         break;
                 }
                 if ( $prefix = "static" ) {
-                        proxy_pass http://localhost:7001;
+                        proxy_pass http://localhost:9001;
                         break;
                 }
                 if ( $prefix = "media" ) {
-                        proxy_pass http://localhost:7002;
+                        proxy_pass http://localhost:9002;
                         break;
                 }
 
@@ -48,21 +48,19 @@ server {
                 #
 
                 if ( $prefix = "amnezic" ) {
-                        # proxy_pass http://localhost:7101;
-                        proxy_pass http://localhost:8080;
+                        proxy_pass http://localhost:9101;
                         break;
                 }
                 if ( $prefix = "api.amnezic" ) {
-                        proxy_pass http://localhost:7111;
+                        proxy_pass http://localhost:9111;
                         break;
                 }
                 if ( $prefix = "stg.amnezic" ) {
-                        # proxy_pass http://localhost:7102;
-                        proxy_pass http://localhost:8081;
+                        proxy_pass http://localhost:9102;
                         break;
                 }
                 if ( $prefix = "stg.api.amnezic" ) {
-                        proxy_pass http://localhost:7112;
+                        proxy_pass http://localhost:9112;
                         break;
                 }
 
@@ -71,11 +69,11 @@ server {
                 #
 
                 if ( $prefix = "games" ) {
-                        proxy_pass http://localhost:7201;
+                        proxy_pass http://localhost:9201;
                         break;
                 }
                 if ( $prefix = "stg.games" ) {
-                        proxy_pass http://localhost:7202;
+                        proxy_pass http://localhost:9202;
                         break;
                 }
 

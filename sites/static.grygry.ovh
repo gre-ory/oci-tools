@@ -4,7 +4,7 @@
 
 server {
         server_name             static.grygry.ovh;
-        listen                  7001 default_server;
+        listen                  9001 default_server;
         listen                  [::]:7001 default_server;
     
         access_log              /var/nginx/log/static.log;
