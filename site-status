@@ -13,7 +13,7 @@ done
 
 # exec
 
-for SITE in $( site-select -a $* ); do
+for SITE in $( site-select --all $* ); do
 
     if [[ -e /etc/nginx/sites-enabled/${SITE} ]]; then
         print-info "site ${SITE}: $( color green enabled )"

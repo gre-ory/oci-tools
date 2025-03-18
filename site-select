@@ -7,14 +7,17 @@ SITES_DIR="${CURRENT_DIR}/sites"
 
 # option
 
+SOURCE="default"
 MODE="multi"
 while [[ "${1}" =~ ^- ]]; do
     case "${1}" in
-        -a|--all)       MODE="multi-all";;
-        -m|--multi)     MODE="multi";;
-        -o|--one)       MODE="one";;
-        -s|--single)    MODE="one";;
-        *)              print-error "unknown option ${1}"; exit 1;;
+        --available)   SOURCE="available";;
+        --enabled)     SOURCE="enabled";;
+        --disabled)    SOURCE="disabled";;
+        -a|--all)      MODE="all";;
+        -m|--multi)    MODE="multi";;
+        -s|--single)   MODE="single";;
+        *)             print-error "unknown option ${1}"; exit 1;;
     esac
     shift
 done
@@ -34,10 +37,20 @@ else
     PATTERN="${1}"
 fi
 
-if [[ "${MODE}" == "multi-all" ]]; then
-    ls ${SITES_DIR} | grep "${PATTERN}" | choose -a -h "Select sites"
-elif [[ "${MODE}" == "multi" ]]; then
-    ls ${SITES_DIR} | grep "${PATTERN}" | choose -m -h "Select sites"
+if [[ "${SOURCE}" == "available" ]]; then
+    SITES=$( ls /etc/nginx/sites-available )
+elif [[ "${SOURCE}" == "enabled" ]]; then
+    SITES=$( ls /etc/nginx/sites-enabled )
+elif [[ "${SOURCE}" == "disabled" ]]; then
+    SITES=$( ( ls /etc/nginx/sites-enabled && ls /etc/nginx/sites-available ) | sort | uniq -u )
 else
-    ls ${SITES_DIR} | grep "${PATTERN}" | choose -h "Select sites"
+    SITES=$( ls ${SITES_DIR} )
+fi
+
+if [[ "${MODE}" == "all" ]]; then
+    echo ${SITES} | grep "${PATTERN}" | choose -a -h "Select sites"
+elif [[ "${MODE}" == "multi" ]]; then
+    echo ${SITES} | grep "${PATTERN}" | choose -m -h "Select sites"
+else
+    echo ${SITES} | grep "${PATTERN}" | choose -h "Select sites"
 fi

@@ -13,7 +13,7 @@ done
 
 # exec
 
-for SITE in $( site-select $* ); do
+for SITE in $( site-select --disabled $* ); do
 
     print-step "${SITE}"
 
