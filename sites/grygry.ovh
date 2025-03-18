@@ -1,0 +1,91 @@
+#
+# http > https
+#
+
+server {
+        server_name             grygry.ovh *.grygry.ovh;
+        listen                  80;
+        listen                  [::]:80;
+
+        access_log              /var/nginx/log/http.log;
+        error_log               /var/nginx/log/http.err;
+
+        return                  301 https://$server_name$request_uri;
+}
+
+#
+# https
+#
+
+server {
+        server_name             ~^((?<prefix>.*)\.)?grygry.ovh$;
+
+        listen                  443 ssl;
+        ssl_certificate         /var/nginx/.ssh/server.crt;
+        ssl_certificate_key     /var/nginx/.ssh/server.key;
+
+        location / {
+
+                #
+                # static
+                #
+
+                if ( $prefix = "www" ) {
+                        proxy_pass http://localhost:7000;
+                        break;
+                }
+                if ( $prefix = "static" ) {
+                        proxy_pass http://localhost:7001;
+                        break;
+                }
+                if ( $prefix = "media" ) {
+                        proxy_pass http://localhost:7002;
+                        break;
+                }
+
+                #
+                # amnezic app
+                #
+
+                if ( $prefix = "amnezic" ) {
+                        # proxy_pass http://localhost:7101;
+                        proxy_pass http://localhost:8080;
+                        break;
+                }
+                if ( $prefix = "api.amnezic" ) {
+                        proxy_pass http://localhost:7111;
+                        break;
+                }
+                if ( $prefix = "stg.amnezic" ) {
+                        # proxy_pass http://localhost:7102;
+                        proxy_pass http://localhost:8081;
+                        break;
+                }
+                if ( $prefix = "stg.api.amnezic" ) {
+                        proxy_pass http://localhost:7112;
+                        break;
+                }
+
+                #
+                # games app
+                #
+
+                if ( $prefix = "games" ) {
+                        proxy_pass http://localhost:7201;
+                        break;
+                }
+                if ( $prefix = "stg.games" ) {
+                        proxy_pass http://localhost:7202;
+                        break;
+                }
+
+                #
+                # not found
+                #
+
+                access_log      /var/nginx/log/others.log;
+                error_log       /var/nginx/log/others.err;
+
+                return 444
+        }
+}
