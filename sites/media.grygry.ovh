@@ -1,19 +1,14 @@
-# http > https
+#
+# http
+#
+
 server {
         server_name             media.grygry.ovh;
-        listen                  80;
+        listen                  7002 default_server;
+        listen                  [::]:7002 default_server;
     
-        return                  301 https://$server_name$request_uri;
-}
-
-# https
-server {
-        server_name             media.grygry.ovh;
-        listen                  443 ssl;
-        include                 /var/nginx/.conf/ssl.conf;
-
         access_log              /var/nginx/log/media.log;
-        error_log               /var/nginx/log/media.log;
+        error_log               /var/nginx/log/media.err;
 
         root                    /var/nginx/media;
         location / {
