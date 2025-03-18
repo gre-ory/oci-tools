@@ -32,8 +32,8 @@ server {
         server_name             ~^((?<prefix>.*)\.)?grygry.ovh$;
 
         listen                  443 ssl;
-        ssl_certificate         /var/nginx/.ssh/server.crt;
-        ssl_certificate_key     /var/nginx/.ssh/server.key;
+        ssl_certificate         /etc/letsencrypt/live/grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/grygry.ovh/privkey.pem;
 
         location / {
 
