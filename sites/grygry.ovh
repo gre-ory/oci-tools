@@ -86,6 +86,6 @@ server {
                 access_log      /var/nginx/log/others.log;
                 error_log       /var/nginx/log/others.err;
 
-                return 444
+                return 444;
         }
 }
