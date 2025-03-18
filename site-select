@@ -48,9 +48,9 @@ else
 fi
 
 if [[ "${MODE}" == "all" ]]; then
-    echo ${SITES} | grep "${PATTERN}" | choose -a -h "Select sites"
+    echo ${SITES} | split-lines | grep "${PATTERN}" | choose -a -h "Select sites"
 elif [[ "${MODE}" == "multi" ]]; then
-    echo ${SITES} | grep "${PATTERN}" | choose -m -h "Select sites"
+    echo ${SITES} | split-lines | grep "${PATTERN}" | choose -m -h "Select sites"
 else
-    echo ${SITES} | grep "${PATTERN}" | choose -h "Select sites"
+    echo ${SITES} | split-lines | grep "${PATTERN}" | choose -h "Select sites"
 fi
