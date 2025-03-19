@@ -1,3 +1,5 @@
+
+
 #
 # https
 #
@@ -31,5 +33,5 @@ server {
 
         root                    /var/nginx/static;
         try_files               $uri $uri/ =404;
-        autoindex               on;
+        # autoindex               on;
 }

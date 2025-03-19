@@ -4,8 +4,8 @@
 
 server {
         server_name             _;
-        listen                  80 default_server;
-        listen                  [::]:80 default_server;
+        listen                  80;
+        listen                  [::]:80;
 
         # access_log              off;
         # error_log               off;
@@ -13,9 +13,7 @@ server {
         access_log              /var/nginx/log/http.log;
         error_log               /var/nginx/log/http.err;
 
-        location / {
-                proxy_redirect          http:// https://;
-        }
+        return                  301 https://$host$request_uri;
 }
 
 #
@@ -37,5 +35,5 @@ server {
         access_log              /var/nginx/log/others.log;
         error_log               /var/nginx/log/others.err;
 
-        return 444;
+        return                  444;
 }
