@@ -32,7 +32,21 @@ source ~/.bashrc
 ln -s ~/_git/oci-tools/bash/.gitconfig
 
 #
-# html
+# nginx
 #
 
-ln -s ~/_git/oci-tools/html/index.html ~/nginx/www
+mkdir _www
+mkdir _www/amnezic
+mkdir _www/media
+mkdir _www/static
+
+chmod 777 _www _www/amnezic _www/media _www/static
+
+ln -s /home/ubuntu/_git/oci-tools/html _www/www
+ln -s /home/ubuntu/_git/stg/amnezic-react/build-stg _www/amnezic/stg
+ln -s /home/ubuntu/_git/prd/amnezic-react/build-prd _www/amnezic/prd
+
+sudo ln -s /home/ubuntu/_www/amnezic /var/www/amnezic
+sudo ln -s /home/ubuntu/_www/media /var/www/media
+sudo ln -s /home/ubuntu/_www/static /var/www/static
+sudo ln -s /home/ubuntu/_www/www /var/www/www
