@@ -13,7 +13,9 @@ server {
         access_log              /var/nginx/log/http.log;
         error_log               /var/nginx/log/http.err;
 
-        proxy_redirect          http:// https://;
+        location / {
+                proxy_redirect          http:// https://;
+        }
 }
 
 #

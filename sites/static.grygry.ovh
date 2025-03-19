@@ -14,7 +14,9 @@ server {
         access_log              /var/nginx/log/static.log;
         error_log               /var/nginx/log/static.err;
 
-        proxy_pass http://localhost:9001;
+        location / {
+                proxy_pass http://localhost:9001;
+        }
 }
 
 #

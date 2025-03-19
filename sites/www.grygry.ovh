@@ -14,7 +14,9 @@ server {
         access_log              /var/nginx/log/www.log;
         error_log               /var/nginx/log/www.err;
 
-        proxy_pass              http://localhost:9000;
+        location / {
+                proxy_pass              http://localhost:9000;
+        }
 }
 
 #

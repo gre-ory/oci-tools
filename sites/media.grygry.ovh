@@ -14,11 +14,13 @@ server {
         access_log              /var/nginx/log/media.log;
         error_log               /var/nginx/log/media.err;
 
-        proxy_pass              http://localhost:9002;
+        location / {
+                proxy_pass              http://localhost:9002;
+        }
 }
 
 #
-# http
+# serve /var/nginx/media
 #
 
 server {
