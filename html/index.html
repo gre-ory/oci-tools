@@ -1,10 +1,84 @@
 <html>
         <head>
                 <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta name="color-scheme" content="dark light">
                 <title>grygry</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+                <style>
+                        footer, header {
+                                --pico-font-family: Pacifico, cursive;
+                                margin-right: 20px;
+                                margin-left: 20px;
+                        }
+                        footer {
+                                text-align: center;
+                        }
+                        h1 {
+                                --pico-font-weight: 400;
+                                --pico-typography-spacing-vertical: 0.5rem;
+                        }
+                        button {
+                                --pico-form-element-spacing-vertical: 5px;
+                                --pico-form-element-spacing-horizontal: 10px;
+                                --pico-border-radius: 5px;
+                                --pico-font-weight: 400;
+                        }
+                </style>
         </head>
-        <body style="margin: 0;padding: 0;background-color: #111;">
-                <h1 style="position: absolute;color: white;opacity: 50%;font-size: 120px;top: 0;left: 50%;transform: translate(-50%,-30px);">grygry</h1>
-                <img src="static/grigri.jpg" style="width: 100%;margin-top: 130px;">
+        <body style="margin: 0;padding: 0;">
+                <header>
+                        <nav>
+                                <ul>
+                                  <li>
+                                        <hgroup>
+                                                <h1>Grygry</h1>
+                                                <p>Have some fun...</p>
+                                        </hgroup>
+                                  </li>
+                                </ul>
+                                <ul>
+                                  <li>
+                                        <button onclick="location.href='https://amnezic.grygry.ovh/';">Amnezic</button>
+                                  </li>
+                                  <li>
+                                        <button onclick="location.href='https://amnezic.grygry.ovh/stg/';" class="secondary">STG</button>
+                                  </li>
+                                  <li>
+                                        <button onclick="location.href='https://games.grygry.ovh/';">Games</button>
+                                  </li>
+                                  <li>
+                                        <button onclick="location.href='https://games.grygry.ovh/stg/';" class="secondary">STG</button>
+                                  </li>
+                                  <li>
+                                        <button onclick="location.href='https://media.grygry.ovh/whistle.mp3';" class="secondary">Media</button>
+                                  </li>
+                                  <li>
+                                        <button onclick="location.href='https://static.grygry.ovh/img/grigri.jpg';" class="secondary">Static</button>
+                                  </li>
+                        </ul>
+                              </nav>
+                </header>
+                
+                <main class="container">
+
+                        <div class="grid">
+                                <div>
+                                </div>
+                                <div>
+                                </div>
+                                <div>
+                                </div>
+                        </div>
+                        
+                        <img src="https://static.grygry.ovh/img/grigri.jpg" style="width: 100%; margin-top: 10px;"/>
+
+                </main>
+                <footer>
+                        @grygry
+                </footer>
         </body>
 </html>
