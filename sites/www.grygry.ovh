@@ -30,6 +30,7 @@ server {
         listen                  [::]:9000;
 
         root                    /var/nginx/www;
+        index                   index.html;
         try_files               $uri $uri/ =404;
-        autoindex               on;
+        # autoindex               on;
 }

@@ -44,8 +44,9 @@ server {
         listen                  [::]:9101;
 
         root                    /var/nginx/amnezic/prd;
+        index                   index.html;
         try_files               $uri $uri/ =404;
-        autoindex               on;
+        # autoindex               on;
 }
 
 #
@@ -59,6 +60,7 @@ server {
         listen                  [::]:9102;
 
         root                    /var/nginx/amnezic/stg;
+        index                   index.html;
         try_files               $uri $uri/ =404;
         autoindex               on;
 }
