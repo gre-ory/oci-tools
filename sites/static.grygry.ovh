@@ -1,18 +1,33 @@
 #
-# http
+# https
 #
 
 server {
         server_name             static.grygry.ovh;
-        listen                  9001 default_server;
-        listen                  [::]:7001 default_server;
+
+        listen                  443 ssl;
+        listen                  [::]:443 ssl;
+
+        ssl_certificate         /etc/letsencrypt/live/static.grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/static.grygry.ovh/privkey.pem;
     
         access_log              /var/nginx/log/static.log;
         error_log               /var/nginx/log/static.err;
 
+        proxy_pass http://localhost:9001;
+}
+
+#
+# serve /var/nginx/static
+#
+
+server {
+        server_name             static.grygry.ovh;
+
+        listen                  9001;
+        listen                  [::]:9001;
+
         root                    /var/nginx/static;
-        location / {
-                try_files       $uri $uri/ =404;
-                autoindex       on;
-        }
+        try_files               $uri $uri/ =404;
+        autoindex               on;
 }

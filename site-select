@@ -11,10 +11,10 @@ SOURCE="default"
 MODE="multi"
 while [[ "${1}" =~ ^- ]]; do
     case "${1}" in
+        --all)         SOURCE="all";;
         --available)   SOURCE="available";;
         --enabled)     SOURCE="enabled";;
         --disabled)    SOURCE="disabled";;
-        -a|--all)      MODE="all";;
         -m|--multi)    MODE="multi";;
         -s|--single)   MODE="single";;
         *)             print-error "unknown option ${1}"; exit 1;;
@@ -43,13 +43,13 @@ elif [[ "${SOURCE}" == "enabled" ]]; then
     SITES=$( ls /etc/nginx/sites-enabled )
 elif [[ "${SOURCE}" == "disabled" ]]; then
     SITES=$( ( ls /etc/nginx/sites-enabled && ls /etc/nginx/sites-available ) | sort | uniq -u )
+elif [[ "${SOURCE}" == "all" ]]; then
+    SITES=$( ( ls ${SITES_DIR} && ls /etc/nginx/sites-enabled && ls /etc/nginx/sites-available ) | sort | uniq )
 else
     SITES=$( ls ${SITES_DIR} )
 fi
 
-if [[ "${MODE}" == "all" ]]; then
-    echo ${SITES} | split-lines | grep "${PATTERN}" | choose -a -h "Select sites"
-elif [[ "${MODE}" == "multi" ]]; then
+if [[ "${MODE}" == "multi" ]]; then
     echo ${SITES} | split-lines | grep "${PATTERN}" | choose -m -h "Select sites"
 else
     echo ${SITES} | split-lines | grep "${PATTERN}" | choose -h "Select sites"

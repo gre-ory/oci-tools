@@ -1,0 +1,64 @@
+
+
+#
+# https
+#
+
+server {
+        server_name             amnezic.grygry.ovh;
+
+        listen                  443 ssl;
+        listen                  [::]:443 ssl;
+        
+        ssl_certificate         /etc/letsencrypt/live/amnezic.grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/amnezic.grygry.ovh/privkey.pem;
+
+        access_log              /var/nginx/log/amnezic.log;
+        error_log               /var/nginx/log/amnezic.err;
+
+        #
+        # prd
+        #
+
+        location / {
+                proxy_pass http://localhost:9101;
+        }
+
+        #
+        # stg
+        #
+
+        location /stg/ {
+                proxy_pass http://localhost:9102;
+        }
+}
+
+#
+# serve /var/nginx/amnezic/prd
+#
+
+server {
+        server_name             amnezic.grygry.ovh;
+
+        listen                  9101;
+        listen                  [::]:9101;
+
+        root                    /var/nginx/amnezic/prd;
+        try_files               $uri $uri/ =404;
+        autoindex               on;
+}
+
+#
+# serve /var/nginx/amnezic/stg
+#
+
+server {
+        server_name             amnezic.grygry.ovh;
+
+        listen                  9102;
+        listen                  [::]:9102;
+
+        root                    /var/nginx/amnezic/stg;
+        try_files               $uri $uri/ =404;
+        autoindex               on;
+}

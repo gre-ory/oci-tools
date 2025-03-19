@@ -1,18 +1,33 @@
 #
-# http
+# https
 #
 
 server {
         server_name             www.grygry.ovh;
-        listen                  9000 default_server;
-        listen                  [::]:7000 default_server;
+
+        listen                  443 ssl;
+        listen                  [::]:443 ssl;
+
+        ssl_certificate         /etc/letsencrypt/live/www.grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/www.grygry.ovh/privkey.pem;
     
         access_log              /var/nginx/log/www.log;
         error_log               /var/nginx/log/www.err;
 
+        proxy_pass              http://localhost:9000;
+}
+
+#
+# serve /var/nginx/www
+#
+
+server {
+        server_name             www.grygry.ovh;
+
+        listen                  9000;
+        listen                  [::]:9000;
+
         root                    /var/nginx/www;
-        location / {
-                try_files       $uri $uri/ =404;
-                autoindex       on;
-        }
+        try_files               $uri $uri/ =404;
+        autoindex               on;
 }

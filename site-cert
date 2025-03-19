@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# option
+
+DRY="0"
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        -d|--dry)       DRY="1";;
+        *)              print-error "unknown option ${1}"; exit 1;;
+    esac
+    shift
+done
+
+print-step "nginx"
+print-cmd "sudo service nginx stop"
+if [[ "${DRY}" == "0" ]]; then
+    sudo service nginx stop
+fi
+
+for SITE in $( site-select --available $* ); do
+
+    print-step "${SITE}"
+
+    print-cmd "sudo certbot certonly --standalone -d ${SITE}"
+    if [[ "${DRY}" == "0" ]]; then
+        sudo certbot certonly --standalone -d ${SITE}
+    fi
+
+done
+
+print-step "nginx"
+print-cmd "sudo service nginx start"
+if [[ "${DRY}" == "0" ]]; then
+    sudo service nginx start
+fi

@@ -1,18 +1,33 @@
 #
+# https
+#
+
+server {
+        server_name             media.grygry.ovh;
+
+        listen                  443 ssl;
+        listen                  [::]:443 ssl;
+
+        ssl_certificate         /etc/letsencrypt/live/media.grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/media.grygry.ovh/privkey.pem;
+
+        access_log              /var/nginx/log/media.log;
+        error_log               /var/nginx/log/media.err;
+
+        proxy_pass              http://localhost:9002;
+}
+
+#
 # http
 #
 
 server {
         server_name             media.grygry.ovh;
-        listen                  9002 default_server;
-        listen                  [::]:7002 default_server;
-    
-        access_log              /var/nginx/log/media.log;
-        error_log               /var/nginx/log/media.err;
+
+        listen                  9002;
+        listen                  [::]:9002;
 
         root                    /var/nginx/media;
-        location / {
-                try_files       $uri $uri/ =404;
-                autoindex       on;
-        }
+        try_files               $uri $uri/ =404;
+        autoindex               on;
 }
