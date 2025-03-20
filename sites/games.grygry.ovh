@@ -20,7 +20,8 @@ server {
         #
 
         location / {
-                proxy_pass http://localhost:9201;
+                # proxy_pass http://localhost:9201;
+                proxy_pass http://localhost:9020;
         }
 
         #
@@ -28,6 +29,7 @@ server {
         #
 
         location /stg/ {
-                proxy_pass http://localhost:9202;
+                # proxy_pass http://localhost:9202;
+                proxy_pass http://localhost:9021;
         }
 }
