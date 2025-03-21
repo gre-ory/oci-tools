@@ -5,7 +5,7 @@ Description=Amnezic Backend STG server
 User=ubuntu
 PIDFile=/run/amnezic.be.stg.pid
 ExecStartPre=/bin/rm -f /run/amnezic.be.stg.pid
-ExecStart=/home/ubuntu/_stg/amnezic-be/scripts/run stg
+ExecStart=/home/ubuntu/_git/_stg/amnezic-go/scripts/run stg 9112
 
 [Install]
 WantedBy=multi-user.target

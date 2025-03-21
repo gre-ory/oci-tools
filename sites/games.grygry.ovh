@@ -29,6 +29,7 @@ server {
         #
 
         location /stg/ {
+                rewrite  ^/stg/(.*) /$1 break;
                 # proxy_pass http://localhost:9202;
                 proxy_pass http://localhost:9021;
         }
