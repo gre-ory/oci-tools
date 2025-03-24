@@ -43,11 +43,7 @@ for SERVICE in ${SERVICES}; do
     print-cmd "sudo systemctl enable ${SERVICE}"
     if [[ "${DRY}" == "0" ]]; then
         sudo systemctl enable ${SERVICE}
-    fi
-
-    print-cmd "sudo journalctl -u ${SERVICE} -b --no-pager"
-    if [[ "${DRY}" == "0" ]]; then
-        sudo journalctl -u ${SERVICE} -b --no-pager
+        service-log "${SERVICE}"
     fi
 
 done

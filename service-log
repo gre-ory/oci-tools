@@ -4,8 +4,6 @@
 SERVICES="${1}"
 if [[ "${SERVICES}" = "" ]]; then
     SERVICES=$( service-select --installed $* )
-else
-    
 fi
 
 for SERVICE in $( echo "${SERVICES}" | split-lines ); do

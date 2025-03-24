@@ -27,10 +27,7 @@ for SERVICE in $( service-select --installed $* ); do
     print-cmd "sudo systemctl start ${SERVICE}"
     if [[ "${DRY}" == "0" ]]; then
         sudo systemctl start ${SERVICE}
+        service-log "${SERVICE}"
     fi
 
-    print-cmd "sudo journalctl -u ${SERVICE} -b --no-pager"
-    if [[ "${DRY}" == "0" ]]; then
-        sudo journalctl -u ${SERVICE} -b --no-pager
-    fi
 done
