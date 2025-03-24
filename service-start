@@ -24,8 +24,8 @@ for SERVICE in $( service-select --installed $* ); do
         sudo systemctl start ${SERVICE}
     fi
 
-    print-cmd "sudo systemctl status ${SERVICE}"
+    print-cmd "sudo journalctl -u ${SERVICE} -b --no-pager"
     if [[ "${DRY}" == "0" ]]; then
-        sudo systemctl status ${SERVICE}
+        sudo journalctl -u ${SERVICE} -b --no-pager
     fi
 done
