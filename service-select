@@ -21,6 +21,8 @@ while [[ "${1}" =~ ^- ]]; do
     shift
 done
 
+PATTERN="${1}"
+
 if [[ "${SOURCE}" == "installed" ]]; then
     SERVICES=$( find /etc/systemd/system/ -name "srv.*.service" -printf "%f\n" )
 elif [[ "${SOURCE}" == "uninstalled" ]]; then
