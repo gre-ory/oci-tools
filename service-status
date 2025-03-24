@@ -1,19 +1,13 @@
 #!/bin/bash
 
-# option
-
-DRY="0"
-while [[ "${1}" =~ ^- ]]; do
-    case "${1}" in
-        -d|--dry)       DRY="1";;
-        *)              print-error "unknown option ${1}"; exit 1;;
-    esac
-    shift
-done
+SERVICES="${1}"
+if [[ "${SERVICES}" = "" ]]; then
+    SERVICES=$( service-select --all $* )
+fi
 
 # exec
 
-for SERVICE in $( service-select --all $* ); do
+for SERVICE in $( echo "${SERVICES}" | split-lines ); do
     if [[ ! -e /etc/systemd/system/${SERVICE} ]]; then
         print-ko "${SERVICE} $( color orange "not installed" )"
     elif ( sudo systemctl is-enabled ${SERVICE} > /dev/null ); then
