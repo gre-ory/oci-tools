@@ -49,6 +49,11 @@ else
     SITES=$( ls ${SITES_DIR} )
 fi
 
+if [[ "${SITES}" == "" ]]; then
+    print-warning "no site"
+    exit 1
+fi
+
 if [[ "${MODE}" == "multi" ]]; then
     echo ${SITES} | split-lines | grep "${PATTERN}" | choose -m -h "Select sites"
 else

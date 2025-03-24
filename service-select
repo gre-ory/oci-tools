@@ -21,20 +21,17 @@ while [[ "${1}" =~ ^- ]]; do
     shift
 done
 
-if [[ "${1}" =~ ^amnezic$ ]]; then
-    PATTERN="amnezic.be.prd"
-elif [[ "${1}" =~ ^games$ ]]; then
-    PATTERN="games.be."
-else
-    PATTERN="${1}"
-fi
-
 if [[ "${SOURCE}" == "installed" ]]; then
     SERVICES=$( find /etc/systemd/system/ -name "*.srv" -printf "%f\n" )
 elif [[ "${SOURCE}" == "all" ]]; then
-    SITES=$( ( ls ${SERVICE_DIR} && find /etc/systemd/system/ -name "*.srv" -printf "%f\n" ) | sort | uniq )
+    SERVICES=$( ( ls ${SERVICE_DIR} && find /etc/systemd/system/ -name "*.srv" -printf "%f\n" ) | sort | uniq )
 else
     SERVICES=$( ls ${SERVICE_DIR} )
+fi
+
+if [[ "${SERVICES}" == "" ]]; then
+    print-warning "no service"
+    exit 1
 fi
 
 if [[ "${MODE}" == "multi" ]]; then
