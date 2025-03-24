@@ -23,12 +23,14 @@ done
 
 PATTERN="${1}"
 
+INSTALLED_SERVICES=$( find /etc/systemd/system/ -maxdepth 1 -name "srv.*.service" -printf "%f\n" )
 if [[ "${SOURCE}" == "installed" ]]; then
-    SERVICES=$( find /etc/systemd/system/ -maxdepth 1 -name "srv.*.service" -printf "%f\n" )
+    SERVICES=${INSTALLED_SERVICES}
 elif [[ "${SOURCE}" == "uninstalled" ]]; then
-    SERVICES=$( ( ls ${SERVICE_DIR} && find /etc/systemd/system/ -maxdepth 1 -name "srv.*.service" -printf "%f\n" ) | sort | uniq -u )
+    # enforce installed to not be selected at the end
+    SERVICES=$( ( ls ${SERVICE_DIR} && echo "${INSTALLED_SERVICES}" && echo "${INSTALLED_SERVICES}" ) | sort | uniq -u )
 elif [[ "${SOURCE}" == "all" ]]; then
-    SERVICES=$( ( ls ${SERVICE_DIR} && find /etc/systemd/system/ -maxdepth 1 -name "srv.*.service" -printf "%f\n" ) | sort | uniq )
+    SERVICES=$( ( ls ${SERVICE_DIR} && echo "${INSTALLED_SERVICES}" ) | sort | uniq )
 else
     SERVICES=$( ls ${SERVICE_DIR} )
 fi
