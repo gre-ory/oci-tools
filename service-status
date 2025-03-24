@@ -1,13 +1,8 @@
 #!/bin/bash
 
-SERVICES="${1}"
-if [[ "${SERVICES}" = "" ]]; then
-    SERVICES=$( service-select --all $* )
-fi
-
 # exec
 
-for SERVICE in $( echo "${SERVICES}" | split-lines ); do
+for SERVICE in $( service-select --all $* ); do
     if [[ ! -e /etc/systemd/system/${SERVICE} ]]; then
         print-ko "${SERVICE} $( color orange "not installed" )"
     elif ( sudo systemctl is-enabled ${SERVICE} > /dev/null ); then
