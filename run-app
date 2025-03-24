@@ -1,5 +1,9 @@
 #!/bin/bash
 
+GIT_ROOT_DIR=${HOME}/_git
+GIT_STG_DIR=${GIT_ROOT_DIR}/_stg
+GIT_PRD_DIR=${GIT_ROOT_DIR}/_prd
+
 if [[ "${1}" == "amnezic" ]]; then
     BIN="amnezic-go/bin/amnezic-go"
 elif  [[ "${1}" == "amnezic" ]]; then
