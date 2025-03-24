@@ -1,0 +1,7 @@
+env-dir:
+  stg: ${HOME}/_git/_stg
+  prd: ${HOME}/_git/_prd
+
+app-bin:
+  amnezic: ${ENV_DIR}/amnezic-go/bin/amnezic-go
+  games: ${ENV_DIR}/games-go/bin/games-go

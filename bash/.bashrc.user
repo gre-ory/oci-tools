@@ -30,6 +30,12 @@ export PATH=${PATH}:${GIT_ROOT_DIR}/oci-tools
 export PATH=${PATH}:.
 
 #
+# alias
+#
+
+export USER_ALIAS_FILE=${GIT_ROOT_DIR}/oci-tools/bash/user-alias.yaml
+
+#
 # gum
 #  >>> gum is very slow on OCI
 #
