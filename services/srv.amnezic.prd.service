@@ -4,7 +4,7 @@ Description=Amnezic Backend PRD server
 [Service]
 User=ubuntu
 PIDFile=/run/amnezic.prd.pid
-EnvironmentFile=-/home/ubuntu/_git/oci-tools/bash/.systemd.env
+EnvironmentFile=/home/ubuntu/_git/oci-tools/bash/.systemd.env
 # ExecStart=/home/ubuntu/_git/bash-tools/go-run --bash /home/ubuntu/_git/_prd/amnezic-go/bin/amnezic-go prd 9111
 ExecStart=run-app amnezic prd 9111
 
