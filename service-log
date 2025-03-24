@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+SERVICES="${1}"
+if [[ "${SERVICES}" = "" ]]; then
+    SERVICES=$( service-select --installed $* )
+else
+    
+fi
+
+for SERVICE in $( echo "${SERVICES}" | split-lines ); do
+    print-cmd "sudo systemctl -l --no-pager status ${SERVICE} | tail -n +7"
+    sudo systemctl -l --no-pager status ${SERVICE} | tail -n +7
+done
