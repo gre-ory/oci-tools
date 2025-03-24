@@ -6,7 +6,7 @@ User=ubuntu
 PIDFile=/run/amnezic.stg.pid
 EnvironmentFile=/home/ubuntu/_git/oci-tools/bash/.systemd.env
 # ExecStartPre=/bin/rm -f /run/amnezic.stg.pid
-ExecStart=run-app amnezic prd 9112
+ExecStart=go-run-app amnezic prd 9112
 
 [Install]
 WantedBy=multi-user.target
