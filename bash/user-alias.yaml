@@ -5,3 +5,7 @@ env-dir:
 app-bin:
   amnezic: ${ENV_DIR}/amnezic-go/bin/amnezic-go
   games: ${ENV_DIR}/games-go/bin/games-go
+
+app-run:
+  amnezic: ${ENV_DIR}/amnezic-go/scripts/run.sh
+  games: ${ENV_DIR}/games-go/scripts/run.sh
