@@ -4,8 +4,9 @@ Description=Amnezic Backend STG server
 [Service]
 User=ubuntu
 PIDFile=/run/amnezic.stg.pid
-ExecStartPre=/bin/rm -f /run/amnezic.stg.pid
-ExecStart=/home/ubuntu/_git/_stg/amnezic-go/scripts/run.sh stg 9112
+EnvironmentFile=/home/ubuntu/_git/oci-tools/bash/.systemd.env
+# ExecStartPre=/bin/rm -f /run/amnezic.stg.pid
+ExecStart=run-app amnezic prd 9112
 
 [Install]
 WantedBy=multi-user.target
