@@ -7,42 +7,38 @@ SERVICE_DIR="${CURRENT_DIR}/services"
 
 # option
 
+SOURCE="default"
 MODE="multi"
 while [[ "${1}" =~ ^- ]]; do
     case "${1}" in
-        -a|--all)       MODE="multi-all";;
-        -m|--multi)     MODE="multi";;
-        -o|--one)       MODE="one";;
-        -s|--single)    MODE="one";;
+        --all)         SOURCE="all";;
+        --available)   SOURCE="available";;
+        --installed)   SOURCE="installed";;
+        -m|--multi)    MODE="multi";;
+        -s|--single)   MODE="single";;
         *)              print-error "unknown option ${1}"; exit 1;;
     esac
     shift
 done
 
-if [[ "${1}" == "" ]]; then
-
-    if [[ "$PWD" =~ /amnezic-be/ ]]; then
-        PATTERN="amnezic.be."
-    elif [[ "$PWD" =~ /amnezic-fe/ ]]; then
-        PATTERN="amnezic.fe."
-    elif [[ "$PWD" =~ /games-be/ ]]; then
-        PATTERN="games.be."
-    fi
-
-    if [[ "$PWD" =~ /_*stg/ ]]; then
-        PATTERN="${PATTERN}stg"
-    elif [[ "$PWD" =~ /_*prd/ ]]; then
-        PATTERN="${PATTERN}prd"
-    fi
-
+if [[ "${1}" =~ ^amnezic$ ]]; then
+    PATTERN="amnezic.be.prd"
+elif [[ "${1}" =~ ^games$ ]]; then
+    PATTERN="games.be."
 else
     PATTERN="${1}"
 fi
 
-if [[ "${MODE}" == "multi-all" ]]; then
-    ls ${SERVICE_DIR} | grep "${PATTERN}" | choose -a -h "Select services"
-elif [[ "${MODE}" == "multi" ]]; then
-    ls ${SERVICE_DIR} | grep "${PATTERN}" | choose -m -h "Select services"
+if [[ "${SOURCE}" == "installed" ]]; then
+    SERVICES=$( find /etc/systemd/system/ -name "*.srv" -printf "%f\n" )
+elif [[ "${SOURCE}" == "all" ]]; then
+    SITES=$( ( ls ${SERVICE_DIR} && find /etc/systemd/system/ -name "*.srv" -printf "%f\n" ) | sort | uniq )
 else
-    ls ${SERVICE_DIR} | grep "${PATTERN}" | choose -h "Select services"
+    SERVICES=$( ls ${SERVICE_DIR} )
+fi
+
+if [[ "${MODE}" == "multi" ]]; then
+    echo ${SERVICES} | split-lines | grep "${PATTERN}" | choose -m -h "Select services"
+else
+    echo ${SERVICES} | split-lines | grep "${PATTERN}" | choose -h "Select services"
 fi
