@@ -12,8 +12,8 @@ MODE="multi"
 while [[ "${1}" =~ ^- ]]; do
     case "${1}" in
         --all)         SOURCE="all";;
-        --available)   SOURCE="available";;
         --installed)   SOURCE="installed";;
+        --uninstalled) SOURCE="uninstalled";;
         -m|--multi)    MODE="multi";;
         -s|--single)   MODE="single";;
         *)              print-error "unknown option ${1}"; exit 1;;
@@ -23,6 +23,8 @@ done
 
 if [[ "${SOURCE}" == "installed" ]]; then
     SERVICES=$( find /etc/systemd/system/ -name "*.srv" -printf "%f\n" )
+elif [[ "${SOURCE}" == "uninstalled" ]]; then
+    SITES=$( ( ls ${SERVICE_DIR} && find /etc/systemd/system/ -name "*.srv" -printf "%f\n" ) | sort | uniq -u )
 elif [[ "${SOURCE}" == "all" ]]; then
     SERVICES=$( ( ls ${SERVICE_DIR} && find /etc/systemd/system/ -name "*.srv" -printf "%f\n" ) | sort | uniq )
 else
