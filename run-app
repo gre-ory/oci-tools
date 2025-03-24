@@ -6,7 +6,7 @@ elif  [[ "${1}" == "amnezic" ]]; then
     BIN="games-go/bin/games-go"
 else
     print-error "unknown app! ( ${1} )"
-    return
+    exit 1
 fi
 shift
 
@@ -16,7 +16,7 @@ elif  [[ "${1}" == "stg" ]]; then
     GIT_DIR=${GIT_STG_DIR}
 else
     print-error "unknown env! ( ${1} )"
-    return
+    exit 1
 fi
 
 print-cmd "go-run ${GIT_STG_DIR}/${BIN} $*"
