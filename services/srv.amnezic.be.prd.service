@@ -5,7 +5,7 @@ Description=Amnezic Backend PRD server
 User=ubuntu
 PIDFile=/run/amnezic.be.prd.pid
 ExecStartPre=/bin/rm -f /run/amnezic.be.prd.pid
-ExecStart=/home/ubuntu/_git/oci-tools/go-run /home/ubuntu/_git/_prd/amnezic-go/bin/amnezic-go prd 9111
+ExecStart=go-run /home/ubuntu/_git/_prd/amnezic-go/bin/amnezic-go prd 9111
 
 [Install]
 WantedBy=multi-user.target
