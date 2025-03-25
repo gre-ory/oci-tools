@@ -41,7 +41,7 @@ server {
 server {
         server_name             amnezic.grygry.ovh;
 
-        listen                  9101;
+        listen                  9111;
         listen                  [::]:9111;
 
         root                    /var/nginx/amnezic/prd;
@@ -57,7 +57,7 @@ server {
 server {
         server_name             amnezic.grygry.ovh;
 
-        listen                  9102;
+        listen                  9112;
         listen                  [::]:9112;
 
         root                    /var/nginx/amnezic/stg;
