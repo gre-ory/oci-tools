@@ -4,8 +4,7 @@ Description=Games Backend PRD server
 [Service]
 User=ubuntu
 PIDFile=/run/games.prd.pid
-ExecStartPre=/bin/rm -f /run/games.prd.pid
-ExecStart=/home/ubuntu/_prd/games-go/scripts/run prd
+ExecStart=/home/ubuntu/_git/oci-tools/systemd-run-app games stg 9201
 
 [Install]
 WantedBy=multi-user.target

@@ -3,6 +3,6 @@ app        :: PRD  :: STG  :: LOC  ::
 www        :: 9000
 static     :: 9001
 media      :: 9002
-amnezic FE :: 9101 :: 9102 :: 9109 ::
-amnezic BE :: 9111 :: 9112 :: 9119 ::
-games      :: 9201 :: 9202 :: 9209 ::
+amnezic BE :: 9101 :: 9102 :: 9109 ::
+amnezic FE :: 9111 :: 9112 :: 9119 ::
+games   BE :: 9201 :: 9202 :: 9209 ::

@@ -21,7 +21,7 @@ server {
         #
 
         location / {
-                proxy_pass http://localhost:9101;
+                proxy_pass http://localhost:9111;
         }
 
         #
@@ -30,7 +30,7 @@ server {
 
         location ~ ^/stg(/.*)? {
                 rewrite  ^/stg(/.*)? $1 break;
-                proxy_pass http://localhost:9102;
+                proxy_pass http://localhost:9112;
         }
 }
 
@@ -42,7 +42,7 @@ server {
         server_name             amnezic.grygry.ovh;
 
         listen                  9101;
-        listen                  [::]:9101;
+        listen                  [::]:9111;
 
         root                    /var/nginx/amnezic/prd;
         index                   index.html;
@@ -58,7 +58,7 @@ server {
         server_name             amnezic.grygry.ovh;
 
         listen                  9102;
-        listen                  [::]:9102;
+        listen                  [::]:9112;
 
         root                    /var/nginx/amnezic/stg;
         index                   index.html;

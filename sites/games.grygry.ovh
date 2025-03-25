@@ -20,8 +20,7 @@ server {
         #
 
         location / {
-                # proxy_pass http://localhost:9201;
-                proxy_pass http://localhost:9020;
+                proxy_pass http://localhost:9201;
         }
 
         #
@@ -30,7 +29,6 @@ server {
 
         location /stg/ {
                 rewrite  ^/stg/(.*) /$1 break;
-                # proxy_pass http://localhost:9202;
-                proxy_pass http://localhost:9021;
+                proxy_pass http://localhost:9202;
         }
 }

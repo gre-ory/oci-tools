@@ -4,8 +4,7 @@ Description=Games Backend STG server
 [Service]
 User=ubuntu
 PIDFile=/run/games.stg.pid
-ExecStartPre=/bin/rm -f /run/games.stg.pid
-ExecStart=/home/ubuntu/_stg/games-go/scripts/run stg
+ExecStart=/home/ubuntu/_git/oci-tools/systemd-run-app games stg 9202
 
 [Install]
 WantedBy=multi-user.target

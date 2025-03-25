@@ -22,14 +22,14 @@ git clone git@github.com:gre-ory/oci-tools oci-tools
 # .bashrc
 #
 
-ln -s ~/_git/oci-tools/bash/.bashrc.user
+ln -s ~/_git/oci-tools/etc/.bashrc.user
 source ~/.bashrc
 
 #
 # git
 #
 
-ln -s ~/_git/oci-tools/bash/.gitconfig
+ln -s ~/_git/oci-tools/etc/.gitconfig
 
 #
 # nginx
