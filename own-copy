@@ -19,7 +19,7 @@ TARGET="${2}"
 SOURCE="${3}"
 
 if [[ -z "${OWNER}" ]]; then
-    print-error "missing OWNER!"
+    2&> print-error "missing OWNER!"
     exit 1
 fi
 if [[ -z "${TARGET}" ]]; then
@@ -29,9 +29,17 @@ fi
 if [[ -z "${SOURCE}" ]]; then
     print-error "missing SOURCE!"
     exit 1
-elif [[ ! -e "${SOURCE}" ]]; then
-    print-error "invalid SOURCE! ( ${SOURCE} )"
-    exit 1
+fi
+if [[ "${SUDO}" == "1" ]]; then
+    if ( sudo test ! -e /etc/letsencrypt/live/api.amnezic.grygry.ovh/fullchain.pem ); then
+        print-error "invalid SOURCE! ( ${SOURCE} )"
+        exit 1
+    fi
+else
+    if ( test ! -e /etc/letsencrypt/live/api.amnezic.grygry.ovh/fullchain.pem ); then
+        print-error "invalid SOURCE! ( ${SOURCE} )"
+        exit 1
+    fi
 fi
 
 if [[ -d "${TARGET}" ]]; then
