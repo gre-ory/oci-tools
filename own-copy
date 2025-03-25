@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# options
+
+SUDO="0"
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        -s|--sudo)      SUDO="1" ;;
+        --)             shift; break;;
+        *)              print-error "unknown option ${1}"; exit 1 ;;
+    esac
+    shift
+done
+
+# args
+
+OWNER="${1}"
+TARGET="${2}"
+SOURCE="${3}"
+
+if [[ -z "${OWNER}" ]]; then
+    print-error "missing OWNER!"
+    exit 1
+fi
+if [[ -z "${TARGET}" ]]; then
+    print-error "missing TARGET!"
+    exit 1
+fi
+if [[ -z "${SOURCE}" ]]; then
+    print-error "missing SOURCE!"
+    exit 1
+elif [[ ! -e "${SOURCE}" ]]; then
+    print-error "invalid SOURCE! ( ${SOURCE} )"
+    exit 1
+fi
+
+if [[ -d "${TARGET}" ]]; then
+    TARGET="${TARGET}/$( basename ${SOURCE} )"
+fi
+
+if [[ "${SUDO}" == "1" ]]; then
+    sudo cp ${SOURCE} ${TARGET}
+    sudo chown ${OWNER} ${TARGET}
+else
+    cp ${SOURCE} ${TARGET}
+    chown ${OWNER} ${TARGET}
+fi
+
+echo "${TARGET}"
