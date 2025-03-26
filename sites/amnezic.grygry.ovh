@@ -31,10 +31,6 @@ server {
 
         location / {
                 proxy_pass              http://localhost:9111;
-                #alias                   /var/nginx/amnezic/prd;
-                #index                   index.html;
-                #try_files               $uri $uri/ =404;
-                ## autoindex               on;
         }
 
         #
