@@ -44,16 +44,16 @@ server {
 }
 
 #
-# serve /var/nginx/amnezic/prd
+# serve /var/nginx/amnezic/stg
 #
 
 server {
         server_name             amnezic.grygry.ovh;
 
-        listen                  9111;
-        listen                  [::]:9111;
+        listen                  9112;
+        listen                  [::]:9112;
 
-        root                    /var/nginx/amnezic/prd;
+        root                    /var/nginx/amnezic/stg;
         index                   index.html;
         try_files               $uri $uri/ =404;
         # autoindex               on;
