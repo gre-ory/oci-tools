@@ -20,9 +20,9 @@ server {
         # config
         #
 
-        location /config.json {
-                alias                   /var/nginx/amnezic;
-                return                  200 prd.json;
+        location /config.json {                
+                default_type application/json;
+                return 200 '{"env":"prd","gameType":"api","apiRootUri":"https://amnezic.grygry.ovh/api/"}';
         }
 
         #
