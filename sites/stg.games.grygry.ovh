@@ -4,13 +4,13 @@
 #
 
 server {
-        server_name             games.grygry.ovh;
+        server_name             stg.games.grygry.ovh;
 
         listen                  443 ssl;
         listen                  [::]:443 ssl;
 
-        ssl_certificate         /etc/letsencrypt/live/games.grygry.ovh/fullchain.pem;
-        ssl_certificate_key     /etc/letsencrypt/live/games.grygry.ovh/privkey.pem;
+        ssl_certificate         /etc/letsencrypt/live/stg.games.grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/stg.games.grygry.ovh/privkey.pem;
 
         access_log              /var/nginx/log/games.log;
         error_log               /var/nginx/log/games.err;
@@ -20,6 +20,6 @@ server {
         #
 
         location / {
-                proxy_pass http://localhost:9201;
+                proxy_pass http://localhost:9202;
         }
 }

@@ -5,13 +5,13 @@
 #
 
 server {
-        server_name             amnezic.grygry.ovh;
+        server_name             stg.amnezic.grygry.ovh;
 
         listen                  443 ssl;
         listen                  [::]:443 ssl;
         
-        ssl_certificate         /etc/letsencrypt/live/amnezic.grygry.ovh/fullchain.pem;
-        ssl_certificate_key     /etc/letsencrypt/live/amnezic.grygry.ovh/privkey.pem;
+        ssl_certificate         /etc/letsencrypt/live/stg.amnezic.grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/stg.amnezic.grygry.ovh/privkey.pem;
 
         # access_log              /var/nginx/log/amnezic.log;
         # error_log               /var/nginx/log/amnezic.err;
@@ -22,7 +22,7 @@ server {
 
         location /config.json {
                 alias                   /home/ubuntu/_git/oci-tools/etc/;
-                try_files               amnezic-prd.json =404;
+                try_files               amnezic-stg.json =404;
         }
 
         #
@@ -30,8 +30,8 @@ server {
         #
 
         location / {
-                # proxy_pass              http://localhost:9111;
-                alias                   /var/nginx/amnezic/prd;
+                # proxy_pass              http://localhost:9112;
+                alias                   /var/nginx/amnezic/stg;
                 index                   index.html;
                 try_files               $uri $uri/ =404;
                 autoindex               on;
@@ -43,7 +43,7 @@ server {
 
         location ~ ^/api(/.*)? {
                 rewrite  ^/api(/.*)? $1 break;
-                proxy_pass http://localhost:9101;
+                proxy_pass http://localhost:9102;
         }
 }
 
