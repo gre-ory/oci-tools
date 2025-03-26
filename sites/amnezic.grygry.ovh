@@ -22,7 +22,7 @@ server {
 
         location /config.json {
                 alias                   /var/nginx/amnezic;
-                return                  200 prd.json
+                return                  200 prd.json;
         }
 
         #
