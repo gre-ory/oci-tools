@@ -46,6 +46,9 @@ ln -s /home/ubuntu/_git/oci-tools/html _www/www
 ln -s /home/ubuntu/_git/stg/amnezic-react/build-stg _www/amnezic/stg
 ln -s /home/ubuntu/_git/prd/amnezic-react/build-prd _www/amnezic/prd
 
+ln -s /home/ubuntu/_git/oci-tools/etc/amnezic-stg.json _www/amnezic/stg.json
+ln -s /home/ubuntu/_git/oci-tools/etc/amnezic-prd.json _www/amnezic/prd.json
+
 sudo ln -s /home/ubuntu/_www/amnezic /var/www/amnezic
 sudo ln -s /home/ubuntu/_www/media /var/www/media
 sudo ln -s /home/ubuntu/_www/static /var/www/static

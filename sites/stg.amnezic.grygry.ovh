@@ -21,8 +21,8 @@ server {
         #
 
         location /config.json {
-                alias                   /home/ubuntu/_git/oci-tools/etc/;
-                try_files               amnezic-stg.json =404;
+                alias                   /var/nginx/amnezic;
+                return                  200 stg.json
         }
 
         #
@@ -34,7 +34,7 @@ server {
                 alias                   /var/nginx/amnezic/stg;
                 index                   index.html;
                 try_files               $uri $uri/ =404;
-                autoindex               on;
+                # autoindex               on;
         }
 
         #
