@@ -22,7 +22,7 @@ server {
 
         location /config.json {                
                 default_type application/json;
-                return 200 '{"env":"stg","gameType":"api","apiRootUri":"https://stg.amnezic.grygry.ovh/api/"}';
+                return 200 '{"env":"stg","log":"debug","gameType":"api","apiUrl":"https://stg.amnezic.grygry.ovh/api/"}';
         }
 
         #
