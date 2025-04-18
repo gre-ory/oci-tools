@@ -20,7 +20,8 @@ server {
         # config
         #
 
-        location /config.json {                
+        location /config.json {   
+                add_header Access-Control-Allow-Origin *;             
                 default_type application/json;
                 return 200 '{"env":"stg","log":"info","gameType":"api","publicUrl":"https://stg.amnezic.grygry.ovh/","apiUrl":"https://stg.amnezic.grygry.ovh/api/","legacyRootUrl":"http://gregory.valigiani.free.fr/amnezic/"}';
         }
