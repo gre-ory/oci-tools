@@ -22,7 +22,7 @@ server {
 
         location /config.json {
                 default_type application/json;
-                return 200 '{"env":"prd","log":"info","gameType":"api","publicUrl":"https://amnezic.grygry.ovh/","apiUrl":"https://amnezic.grygry.ovh/api/","publicUrl":"https://amnezic.grygry.ovh/","legacyRootUrl":"http://gregory.valigiani.free.fr/amnezic/"}';
+                return 200 '{"env":"prd","log":"warn","gameType":"api","publicUrl":"https://amnezic.grygry.ovh/","apiUrl":"https://amnezic.grygry.ovh/api/","publicUrl":"https://amnezic.grygry.ovh/","legacyRootUrl":"http://gregory.valigiani.free.fr/amnezic/"}';
         }
 
         #
