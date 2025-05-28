@@ -17,7 +17,7 @@ if [[ "${DRY}" == "0" ]]; then
     sudo service nginx stop
 fi
 
-for SITE in $( site-select --available $* ); do
+for SITE in $( site-select --all $* ); do
 
     print-step "${SITE}"
 
