@@ -4,8 +4,10 @@
 
 SUDO="0"
 PORT=""
+CORS="0"
 while [[ "${1}" =~ ^- ]]; do
     case "${1}" in
+        -c|--cors)      CORS="1";;
         -s|--sudo)      SUDO="1";;
         -p|--port)      PORT="${2}"; shift;;
         --)             shift; break;;
@@ -18,9 +20,19 @@ if [[ -z "${PORT}" ]]; then
     PORT=${1:-80}
 fi
 
-print-cmd "python3 -m http.server ${PORT}"
-if [[ "${SUDO}" == "1" ]]; then
-    sudo python3 -m http.server ${PORT}
+if [[ "${CORS}" == "0" ]]; then
+    print-cmd "python3 -m http.server ${PORT}"
+    if [[ "${SUDO}" == "1" ]]; then
+        sudo python3 -m http.server ${PORT}
+    else
+        python3 -m http.server ${PORT}
+    fi
 else
-    python3 -m http.server ${PORT}
+    PY_SCRIPT="$( dirname $0 )/serve-with-cors.py"
+    print-cmd "python3 ${PY_SCRIPT} ${PORT}"
+    if [[ "${SUDO}" == "1" ]]; then
+        sudo python3 ${PY_SCRIPT} ${PORT}
+    else
+        python3 ${PY_SCRIPT} ${PORT}
+    fi
 fi

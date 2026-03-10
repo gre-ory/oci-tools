@@ -13,3 +13,9 @@ sudo apt update && sudo apt install gum
 #
 
 curl -sSf https://sshx.io/get | sh
+
+#
+# install yq
+#
+
+sudo snap install yq --channel=v4/stable

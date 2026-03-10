@@ -7,42 +7,41 @@ SERVICE_DIR="${CURRENT_DIR}/services"
 
 # option
 
+SOURCE="default"
 MODE="multi"
 while [[ "${1}" =~ ^- ]]; do
     case "${1}" in
-        -a|--all)       MODE="multi-all";;
-        -m|--multi)     MODE="multi";;
-        -o|--one)       MODE="one";;
-        -s|--single)    MODE="one";;
+        --all)         SOURCE="all";;
+        --installed)   SOURCE="installed";;
+        --uninstalled) SOURCE="uninstalled";;
+        -m|--multi)    MODE="multi";;
+        -s|--single)   MODE="single";;
         *)              print-error "unknown option ${1}"; exit 1;;
     esac
     shift
 done
 
-if [[ "${1}" == "" ]]; then
+PATTERN="${1}"
 
-    if [[ "$PWD" =~ /amnezic-be/ ]]; then
-        PATTERN="amnezic.be."
-    elif [[ "$PWD" =~ /amnezic-fe/ ]]; then
-        PATTERN="amnezic.fe."
-    elif [[ "$PWD" =~ /games-be/ ]]; then
-        PATTERN="games.be."
-    fi
-
-    if [[ "$PWD" =~ /_*stg/ ]]; then
-        PATTERN="${PATTERN}stg"
-    elif [[ "$PWD" =~ /_*prd/ ]]; then
-        PATTERN="${PATTERN}prd"
-    fi
-
+INSTALLED_SERVICES=$( find /etc/systemd/system/ -maxdepth 1 -name "srv.*.service" -printf "%f\n" )
+if [[ "${SOURCE}" == "installed" ]]; then
+    SERVICES=${INSTALLED_SERVICES}
+elif [[ "${SOURCE}" == "uninstalled" ]]; then
+    # enforce installed to not be selected at the end
+    SERVICES=$( ( ls ${SERVICE_DIR} && echo "${INSTALLED_SERVICES}" && echo "${INSTALLED_SERVICES}" ) | sort | uniq -u )
+elif [[ "${SOURCE}" == "all" ]]; then
+    SERVICES=$( ( ls ${SERVICE_DIR} && echo "${INSTALLED_SERVICES}" ) | sort | uniq )
 else
-    PATTERN="${1}"
+    SERVICES=$( ls ${SERVICE_DIR} )
 fi
 
-if [[ "${MODE}" == "multi-all" ]]; then
-    ls ${SERVICE_DIR} | grep "${PATTERN}" | choose -a -h "Select services"
-elif [[ "${MODE}" == "multi" ]]; then
-    ls ${SERVICE_DIR} | grep "${PATTERN}" | choose -m -h "Select services"
+if [[ "${SERVICES}" == "" ]]; then
+    print-warning "no service"
+    exit 1
+fi
+
+if [[ "${MODE}" == "multi" ]]; then
+    echo ${SERVICES} | split-lines | grep "${PATTERN}" | choose -m -h "Select services"
 else
-    ls ${SERVICE_DIR} | grep "${PATTERN}" | choose -h "Select services"
+    echo ${SERVICES} | split-lines | grep "${PATTERN}" | choose -h "Select services"
 fi

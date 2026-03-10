@@ -1,21 +1,20 @@
 #!/bin/bash
 
-# option
-
-DRY="0"
-while [[ "${1}" =~ ^- ]]; do
-    case "${1}" in
-        -d|--dry)       DRY="1";;
-        *)              print-error "unknown option ${1}"; exit 1;;
-    esac
-    shift
-done
-
 # exec
 
-for SERVICE in $( service-select $* ); do
-    print-cmd "sudo systemctl status ${SERVICE}"
-    if [[ "${DRY}" == "0" ]]; then
-        sudo systemctl status ${SERVICE}
+for SERVICE in $( service-select --all $* ); do
+    if [[ ! -e /etc/systemd/system/${SERVICE} ]]; then
+        print-ko "${SERVICE} $( color orange "not installed" )"
+    elif ( sudo systemctl is-enabled ${SERVICE} > /dev/null ); then
+        if ( sudo systemctl is-active ${SERVICE} > /dev/null ); then
+            print-ok "${SERVICE} $( color green active )"
+        elif ( sudo systemctl is-failed ${SERVICE} > /dev/null ); then
+            print-ko "${SERVICE} $( color red failed )"
+            service-log "${SERVICE}"
+        else 
+            print-ko "${SERVICE} $( color gray unknown )"
+        fi
+    else
+        print-ko "${SERVICE} $( color orange disabled )"
     fi
 done

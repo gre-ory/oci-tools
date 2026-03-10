@@ -1,0 +1,5 @@
+{
+    "env": "prd",
+    "gameType": "api",
+    "apiRootUri": "https://api.amnezic.grygry.ovh/"
+}

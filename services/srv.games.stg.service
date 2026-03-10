@@ -1,0 +1,10 @@
+[Unit]
+Description=Games Backend STG server
+
+[Service]
+User=ubuntu
+PIDFile=/run/games.stg.pid
+ExecStart=/home/ubuntu/_git/oci-tools/systemd-run-app games stg 9202
+
+[Install]
+WantedBy=multi-user.target

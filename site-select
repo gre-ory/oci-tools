@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# global
+
+CURRENT_DIR=$( dirname $0 )
+SITES_DIR="${CURRENT_DIR}/sites"
+
+# option
+
+SOURCE="default"
+MODE="multi"
+while [[ "${1}" =~ ^- ]]; do
+    case "${1}" in
+        --all)         SOURCE="all";;
+        --available)   SOURCE="available";;
+        --enabled)     SOURCE="enabled";;
+        --disabled)    SOURCE="disabled";;
+        -m|--multi)    MODE="multi";;
+        -s|--single)   MODE="single";;
+        *)             print-error "unknown option ${1}"; exit 1;;
+    esac
+    shift
+done
+
+HOST="grygry.ovh"
+if [[ "${1}" =~ ^www$ ]]; then
+    PATTERN="www.${HOST}"
+elif [[ "${1}" =~ ^media$ ]]; then
+    PATTERN="media.${HOST}"
+elif [[ "${1}" =~ ^amnezic$ ]]; then
+    PATTERN="amnezic.${HOST}"
+elif [[ "${1}" =~ ^api$ ]]; then
+    PATTERN="api.amnezic.${HOST}"
+elif [[ "${1}" =~ ^(game|games)$ ]]; then
+    PATTERN="games.${HOST}"
+else
+    PATTERN="${1}"
+fi
+
+if [[ "${SOURCE}" == "available" ]]; then
+    SITES=$( ls /etc/nginx/sites-available )
+elif [[ "${SOURCE}" == "enabled" ]]; then
+    SITES=$( ls /etc/nginx/sites-enabled )
+elif [[ "${SOURCE}" == "disabled" ]]; then
+    SITES=$( ( ls /etc/nginx/sites-enabled && ls /etc/nginx/sites-available ) | sort | uniq -u )
+elif [[ "${SOURCE}" == "all" ]]; then
+    SITES=$( ( ls ${SITES_DIR} && ls /etc/nginx/sites-enabled && ls /etc/nginx/sites-available ) | sort | uniq )
+else
+    SITES=$( ls ${SITES_DIR} )
+fi
+
+if [[ "${SITES}" == "" ]]; then
+    print-warning "no site"
+    exit 1
+fi
+
+if [[ "${MODE}" == "multi" ]]; then
+    echo ${SITES} | split-lines | grep "${PATTERN}" | choose -m -h "Select sites"
+else
+    echo ${SITES} | split-lines | grep "${PATTERN}" | choose -h "Select sites"
+fi

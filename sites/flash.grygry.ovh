@@ -1,0 +1,42 @@
+
+
+#
+# https
+#
+
+server {
+        server_name             flash.grygry.ovh;
+
+        listen                  443 ssl;
+        listen                  [::]:443 ssl;
+        
+        ssl_certificate         /etc/letsencrypt/live/flash.grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/flash.grygry.ovh/privkey.pem;
+
+        # access_log              /var/nginx/log/flash.log;
+        # error_log               /var/nginx/log/flash.err;
+
+        #
+        # frontend
+        #
+
+        location / {
+                proxy_pass              http://localhost:9311;
+        }
+}
+
+#
+# serve /var/nginx/flash/prd
+#
+
+server {
+        server_name             flash.grygry.ovh;
+
+        listen                  9311;
+        listen                  [::]:9311;
+
+        root                    /var/nginx/flash/prd;
+        index                   index.html;
+        try_files               $uri $uri/ =404;
+        # autoindex               on;
+}

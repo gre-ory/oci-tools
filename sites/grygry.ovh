@@ -1,0 +1,39 @@
+#
+# http > https
+#
+
+server {
+        server_name             _;
+        listen                  80;
+        listen                  [::]:80;
+
+        # access_log              off;
+        # error_log               off;
+
+        access_log              /var/nginx/log/http.log;
+        error_log               /var/nginx/log/http.err;
+
+        return                  301 https://$host$request_uri;
+}
+
+#
+# https
+#
+
+server {
+        server_name             _;
+
+        listen                  443 default_server ssl;
+        listen                  [::]:443 default_server ssl;
+        
+        ssl_certificate         /etc/letsencrypt/live/grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/grygry.ovh/privkey.pem;
+
+        # access_log              off;
+        # error_log               off;
+
+        access_log              /var/nginx/log/others.log;
+        error_log               /var/nginx/log/others.err;
+
+        return                  444;
+}

@@ -2,6 +2,8 @@
 # bash tools
 #
 
+source ${HOME}/_git/bash-tools/_bash/.bashrc
+
 #
 # prompt
 #
@@ -26,6 +28,12 @@ export PRD_DIR=${HOME}/_prd
 export PATH=${PATH}:${GIT_ROOT_DIR}/bash-tools
 export PATH=${PATH}:${GIT_ROOT_DIR}/oci-tools
 export PATH=${PATH}:.
+
+#
+# alias
+#
+
+export USER_ALIAS_FILE=${GIT_ROOT_DIR}/oci-tools/bash/user-alias.yaml
 
 #
 # gum

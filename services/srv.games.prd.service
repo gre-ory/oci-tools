@@ -1,0 +1,10 @@
+[Unit]
+Description=Games Backend PRD server
+
+[Service]
+User=ubuntu
+PIDFile=/run/games.prd.pid
+ExecStart=/home/ubuntu/_git/oci-tools/systemd-run-app games stg 9201
+
+[Install]
+WantedBy=multi-user.target

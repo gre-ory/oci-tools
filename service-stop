@@ -13,14 +13,10 @@ done
 
 # exec
 
-for SERVICE in $( service-select $* ); do
+for SERVICE in $( service-select --installed $* ); do
     print-cmd "sudo systemctl stop ${SERVICE}"
     if [[ "${DRY}" == "0" ]]; then
         sudo systemctl stop ${SERVICE}
-    fi
-
-    print-cmd "sudo systemctl status ${SERVICE}"
-    if [[ "${DRY}" == "0" ]]; then
-        sudo systemctl status ${SERVICE}
+        service-log "${SERVICE}"
     fi
 done

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+CURRENT_DIR=$( dirname $0 )
+
+#
+# source env
+#
+
+ENV_FILE="${CURRENT_DIR}/etc/systemd.env"
+set -o allexport
+source "${ENV_FILE}"
+set +o allexport
+
+#
+# args
+#
+
+print-info "go-run-app $*"
+exec go-run-app $*

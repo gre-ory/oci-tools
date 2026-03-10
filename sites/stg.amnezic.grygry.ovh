@@ -1,0 +1,61 @@
+
+
+#
+# https
+#
+
+server {
+        server_name             stg.amnezic.grygry.ovh;
+
+        listen                  443 ssl;
+        listen                  [::]:443 ssl;
+        
+        ssl_certificate         /etc/letsencrypt/live/stg.amnezic.grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/stg.amnezic.grygry.ovh/privkey.pem;
+
+        # access_log              /var/nginx/log/amnezic.log;
+        # error_log               /var/nginx/log/amnezic.err;
+
+        #
+        # config
+        #
+
+        location /config.json {   
+                add_header Access-Control-Allow-Origin *;             
+                default_type application/json;
+                return 200 '{"env":"stg","log":"info","gameType":"api","publicUrl":"https://stg.amnezic.grygry.ovh/","apiUrl":"https://stg.amnezic.grygry.ovh/api/","legacyRootUrl":"http://gregory.valigiani.free.fr/amnezic/"}';
+        }
+
+        #
+        # frontend
+        #
+
+        location / {
+                proxy_pass              http://localhost:9112;
+        }
+
+        #
+        # backend
+        #
+
+        location ~ ^/api(/.*)? {
+                rewrite  ^/api(/.*)? $1 break;
+                proxy_pass http://localhost:9102;
+        }
+}
+
+#
+# serve /var/nginx/amnezic/stg
+#
+
+server {
+        server_name             amnezic.grygry.ovh;
+
+        listen                  9112;
+        listen                  [::]:9112;
+
+        root                    /var/nginx/amnezic/stg;
+        index                   index.html;
+        try_files               $uri $uri/ =404;
+        # autoindex               on;
+}

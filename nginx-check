@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ "${1}" == "" ]]; then
+    print-error "missing argument"
+    exit 1
+fi
+
+print-cmd "sudo -u www-data namei \"${1}\""
+sudo -u www-data namei "${1}"

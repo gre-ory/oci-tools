@@ -1,0 +1,42 @@
+
+
+#
+# https
+#
+
+server {
+        server_name             math.grygry.ovh;
+
+        listen                  443 ssl;
+        listen                  [::]:443 ssl;
+        
+        ssl_certificate         /etc/letsencrypt/live/math.grygry.ovh/fullchain.pem;
+        ssl_certificate_key     /etc/letsencrypt/live/math.grygry.ovh/privkey.pem;
+
+        # access_log              /var/nginx/log/math.log;
+        # error_log               /var/nginx/log/math.err;
+
+        #
+        # frontend
+        #
+
+        location / {
+                proxy_pass              http://localhost:9411;
+        }
+}
+
+#
+# serve /var/nginx/flash/prd
+#
+
+server {
+        server_name             flash.grygry.ovh;
+
+        listen                  9411;
+        listen                  [::]:9411;
+
+        root                    /var/nginx/math/prd;
+        index                   index.html;
+        try_files               $uri $uri/ =404;
+        # autoindex               on;
+}
